@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+ 	<!-- <debug/> -->
+
+	<!-- To enable Method Security Expressions and custom PermissionEvaluator
+		we need to add the following; also note that the following pre-post-annotations="enabled"
+		had moved to ghixsecurity-servlet.xml :- HIX-6154 :: Venkata Tadepalli-->
+	<global-method-security pre-post-annotations="enabled">
+		<expression-handler ref="expressionHandler" />
+	</global-method-security>
+
+	<!-- To use hasPermission() expressions, we have to configure a PermissionEvaluator -->
+	<!-- See 15.3.2 Built-In Expression 
+			@http://static.springsource.org/spring-security/site/docs/3.0.x/reference/el-access.html#el-permission-evaluator -->
+	<beans:bean id="expressionHandler"
+		class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+		<beans:property name="permissionEvaluator" ref="customPermissionEvaluator" />
+	</beans:bean>
+	
+	  
+	<!-- Declare a custom PermissionEvaluator interface -->
+	<!-- <beans:bean class="com.getinsured.hix.platform.security.CustomPermissionEvaluator" id="customPermissionEvaluator"/> -->
+	<http pattern="/favicon.ico" security="none" />
+	<http auto-config="true" use-expressions="true" disable-url-rewriting="true" access-denied-page="/account/user/denied">
+	
+		<!-- To achieve Remember-me functionality - HIX-15569 - Darshan Hardas 
+		<intercept-url pattern="/account/user/login" access="permitAll" />
+		<intercept-url pattern="/account/user/loginSuccess" access="isAuthenticated()" />-->
+		
+		<!-- START :: LIST OF UN SECURIED URLS -->
+		<intercept-url pattern="/"  access="permitAll" />
+		<intercept-url pattern="/bahikhaata/**"  access="permitAll" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/bahikhaata/resources/**" access="permitAll" />
+		<!-- END :: LIST OF UN SECURIED URLS -->
+		<intercept-url pattern="/**/**" access="isAuthenticated()" />
+		<form-login always-use-default-target="true" 
+				login-page="/account/user/login?confirmId=Y" 
+				authentication-success-handler-ref="ghixSuccessHandler" 
+				authentication-failure-handler-ref="ghixFailureHandler"
+				default-target-url="/account/user/loginSuccess" />
+			
+		<logout 
+				delete-cookies="JSESSIONID"
+				invalidate-session="true" 
+				logout-success-url="/account/user/login" />
+		
+		<expression-handler ref="customExpressionHandler"/>
+		<session-management session-authentication-strategy-ref="sessionFixationStrategy"/>
+	</http>
+	
+	<beans:bean id="sessionFixationStrategy"
+      class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy">
+      	<beans:property name="alwaysCreateSession" value="true"></beans:property>
+      	<beans:property name="migrateSessionAttributes" value="true"></beans:property>
+      </beans:bean>
+	
+	<beans:bean id="ghixSuccessHandler" class="blog.platform.authentication.UrlAuthenticationSuccessHandler">
+	 	<beans:property name="defaultTargetUrl" value="/account/user/loginSuccess"/>
+	 	<beans:property name="baseGhixAuthContext" value="/hix"/>
+	</beans:bean>
+	
+	<beans:bean id="ghixFailureHandler" class="blog.platform.authentication.UrlAuthenticationFailureHandler">
+	 	<beans:property name="defaultFailureUrl" value="/account/user/loginfailed"/>
+	</beans:bean>
+	
+	<beans:bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource"
+		 p:userPropertyToUse="uuid" />
+	
+	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
+    <beans:property name="basenames">  
+        <beans:list>
+            <beans:value>classpath:/i18n/Account_exceptions</beans:value>
+        </beans:list>
+    </beans:property>
+	</beans:bean> 
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<beans:bean id="customUserDetailsService" class="blog.platform.authentication.CustomUserDetailsService" />
+
+	<beans:bean id="ghixDaoAuthenticationProvider"
+	    class="blog.platform.authentication.DaoAuthenticationProvider"
+	    p:passwordEncoder-ref="passwordEncoder"
+	    p:saltSource-ref="saltSource"
+	    p:userDetailsService-ref="customUserDetailsService" />
+    
+	<authentication-manager>
+	    <authentication-provider ref="ghixDaoAuthenticationProvider" />
+	</authentication-manager>
+
+</beans:beans>

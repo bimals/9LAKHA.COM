@@ -1,0 +1,1 @@
+<div ng-include='"resources/templates/footer.html"'></div>

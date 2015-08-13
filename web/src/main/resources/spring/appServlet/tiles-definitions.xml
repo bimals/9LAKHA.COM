@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	
+	<definition name="shell" template="/WEB-INF/views/layouts/shell.jsp" preparer="menuViewPreparer">
+		<put-attribute name="masthead" value="/WEB-INF/views/layouts/masthead.jsp" />
+		<put-attribute name="topnav" value="/WEB-INF/views/layouts/topnav.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/layouts/menu.jsp" />
+		<put-attribute name="main" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/layouts/footer.jsp" />
+	</definition>
+	
+	<definition name="home" extends="shell"><put-attribute name="main" value="/WEB-INF/views/home.jsp"/></definition>
+	<definition name="login" template="/WEB-INF/views/auth/login.jsp"/>
+	<definition name="welcome" extends="shell"><put-attribute name="main" value="/WEB-INF/views/auth/welcome.jsp"/></definition>
+	<definition name="register" extends="shell"><put-attribute name="main" value="/WEB-INF/views/auth/register.jsp"/></definition>
+
+</tiles-definitions>
