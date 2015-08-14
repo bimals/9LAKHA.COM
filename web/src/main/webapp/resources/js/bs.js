@@ -11,14 +11,14 @@ app.controller("RegistrationController", [ '$scope', '$http',
 					firstName : $scope.firstName,
 					lastName : $scope.lastName
 				};
-				var res = $http.post('/bahikhaata/account/user/create', userObj);
+				var res = $http.post('/9lakha/account/user/create', userObj);
 				res.success(function(data, status, headers, config) {
 					$scope.message = data;
 					$scope.inputEmail = '';
 					$scope.password = '';
 					$scope.firstName = '';
 					$scope.lastName = '';
-					window.location = '/bahikhaata/account/user/loginSuccess';
+					window.location = '/9lakha/account/user/loginSuccess';
 				});
 				res.error(function(data, status, headers, config) {
 					alert("failure message: " + JSON.stringify({
@@ -39,7 +39,7 @@ app.controller("loginController", [ '$scope', '$http', function($scope, $http) {
 			userName : $scope.inputEmail,
 			password : $scope.password
 		};
-		var res = $http.post('/bahikhaata/account/user/login', userObj);
+		var res = $http.post('/9lakha/account/user/login', userObj);
 		res.success(function(data, status, headers, config) {
 			$scope.message = data;
 			$scope.inputEmail = '';
@@ -60,7 +60,7 @@ app.controller("loginController", [ '$scope', '$http', function($scope, $http) {
 app.directive("oneBlog", function() {
 	return {
 		restrict : 'E',
-		templateUrl : '/bahikhaata/account/user/login'
+		templateUrl : '/9lakha/account/user/login'
 	}
 });
 
@@ -93,13 +93,21 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when("/login", {
 		templateUrl : "resources/partials/login.html",
 		controller : "PageCtrl"
+	}).when("/customdesign", {
+		templateUrl : "resources/partials/customdesign.html",
+		controller : "PageCtrl"
 	})
+	
+	
 	// Blog
 	.when("/blog", {
 		templateUrl : "resources/partials/blog.html",
 		controller : "BlogCtrl"
 	}).when("/blog/post", {
 		templateUrl : "resources/partials/blog_item.html",
+		controller : "BlogCtrl"
+	}).when("/jwel/details", {
+		templateUrl : "resources/partials/jweldetails.html",
 		controller : "BlogCtrl"
 	})
 	// else 404

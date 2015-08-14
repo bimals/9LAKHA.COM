@@ -40,9 +40,9 @@
 		
 		<!-- START :: LIST OF UN SECURIED URLS -->
 		<intercept-url pattern="/"  access="permitAll" />
-		<intercept-url pattern="/bahikhaata/**"  access="permitAll" />
+		<intercept-url pattern="/9lakha/**"  access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
-		<intercept-url pattern="/bahikhaata/resources/**" access="permitAll" />
+		<intercept-url pattern="/9lakha/resources/**" access="permitAll" />
 		<!-- END :: LIST OF UN SECURIED URLS -->
 		<intercept-url pattern="/**/**" access="isAuthenticated()" />
 		<form-login always-use-default-target="true" 
