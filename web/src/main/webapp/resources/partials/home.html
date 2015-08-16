@@ -1,18 +1,19 @@
-<div class="container" style="margin-top:20px">
+<div class="container" style="margin-top:20px" ng-controller="HomeController" ng-init="isLoggedIn()">
 
     <div class="row well">
 		<div class="col-lg-6">
+		<form class="form-horizontal" ng-controller="HomeController" ng-submit="search()">
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for...">
+				<input type="text" class="form-control" placeholder="Search for..." ng-model="searchText">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Go!</button>
+					<button class="btn btn-default" type="Submit">Go!</button>
 				</span>
 			</div>
-			<!-- /input-group -->
+			</form>
 		</div>
 		<!-- /.col-lg-6 -->
 		<div class="col-lg-4 col-md-4">
-            <a class="btn btn-lg btn-primary pull-right" href="#/pricing">Start Selling Now!</a>
+            <a class="btn btn-lg btn-primary pull-right" ng-show="!loggedIn" href="#/pricing">Start Selling Now!</a>
         </div>
     </div>
 

@@ -1,35 +1,27 @@
 package blog.platform.authentication;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
 
-/**
- * An {@link AuthenticationProvider} implementation that retrieves user details from a {@link UserDetailsService}.
- * Customized by 
- * @author Venkata Tadepalli
- * @since March 30, 2014
- */
 public class DaoAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
     //~ Instance fields ================================================================================================
 
-    private PasswordEncoder passwordEncoder = new PlaintextPasswordEncoder();
-
-    private SaltSource saltSource;
-
-    private UserDetailsService userDetailsService;
+    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired private SaltSource saltSource;
+    @Autowired private UserDetailsService userDetailsService;
 
     //~ Methods ========================================================================================================
 
@@ -44,17 +36,16 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
         if (authentication.getCredentials() == null) {
             logger.debug("Authentication failed: no credentials provided");
 
-            throw new BadCredentialsException(messages.getMessage(
-                    "AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"), userDetails);
+            throw new BadCredentialsException(messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"), new UsernameNotFoundException("Bad Credential"));
         }
 
         String presentedPassword = authentication.getCredentials().toString();
 
-        if (!passwordEncoder.isPasswordValid(userDetails.getPassword(), presentedPassword, salt)) {
+        if (!passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
             logger.debug("Authentication failed: password does not match stored value");
 
             throw new BadCredentialsException(messages.getMessage(
-                    "AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"), userDetails);
+                    "AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"), new UsernameNotFoundException("Bad Credential"));
         }
     }
 
@@ -79,68 +70,6 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
                     "UserDetailsService returned null, which is an interface contract violation");
         }
         return loadedUser;
-    }
-
-    /**
-     * Sets the PasswordEncoder instance to be used to encode and validate passwords.
-     * If not set, the password will be compared as plain text.
-     * <p>
-     * For systems which are already using salted password which are encoded with a previous release, the encoder
-     * should be of type {@code org.springframework.security.authentication.encoding.PasswordEncoder}. Otherwise,
-     * the recommended approach is to use {@code org.springframework.security.crypto.password.PasswordEncoder}.
-     *
-     * @param passwordEncoder must be an instance of one of the {@code PasswordEncoder} types.
-     */
-    public void setPasswordEncoder(Object passwordEncoder) {
-        Assert.notNull(passwordEncoder, "passwordEncoder cannot be null");
-
-        if (passwordEncoder instanceof PasswordEncoder) {
-            this.passwordEncoder = (PasswordEncoder) passwordEncoder;
-            return;
-        }
-
-        if (passwordEncoder instanceof org.springframework.security.crypto.password.PasswordEncoder) {
-            final org.springframework.security.crypto.password.PasswordEncoder delegate =
-                    (org.springframework.security.crypto.password.PasswordEncoder)passwordEncoder;
-            this.passwordEncoder = new PasswordEncoder() {
-                public String encodePassword(String rawPass, Object salt) {
-                    checkSalt(salt);
-                    return delegate.encode(rawPass);
-                }
-
-                public boolean isPasswordValid(String encPass, String rawPass, Object salt) {
-                	/*
-                	 *  HIX-42022 : Implement hybrid authentication (sso and db login)
-                	 *              in case of ssoAuth; the following values had set to default 
-                	 *              in CustomUserDetailsService
-                	 *              rawPass :: "ssoAuth:NOT_APPLICABLE"
-                	 *              encPass :: "ssoAuth:NOT_APPLICABLE" 
-                	 *              salt    :: "ssoAuth:NOT_APPLICABLE"
-                	 */
-                	boolean isPwdValid=false;
-                	if(encPass.contains("ssoAuth:")){
-                		isPwdValid= StringUtils.equals(rawPass, encPass);
-                	}else{
-                		checkSalt(salt);
-                        rawPass=rawPass+(String)salt;
-                        isPwdValid= delegate.matches(rawPass, encPass);
-                	}
-                    return isPwdValid;
-                }
-
-                private void checkSalt(Object salt) {
-                    Assert.hasText((String)salt, "Salt value must not be null or empty");
-                }
-            };
-
-            return;
-        }
-
-        throw new IllegalArgumentException("passwordEncoder must be a PasswordEncoder instance");
-    }
-
-    protected PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
     }
 
     /**

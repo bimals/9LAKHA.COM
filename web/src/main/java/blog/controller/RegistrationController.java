@@ -3,6 +3,7 @@ package blog.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,8 @@ import blog.model.AccountUser;
 @Controller
 public class RegistrationController {
 
-	@Autowired IUserRepository userRepository;
+	@Autowired private IUserRepository userRepository;
+	@Autowired private PasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value="/account/user/new", method = RequestMethod.GET)
 	public String loginForm(HttpServletRequest request) {
@@ -23,6 +25,8 @@ public class RegistrationController {
 
 	@RequestMapping(value="/account/user/create", method = RequestMethod.POST)
 	public String createUser(@RequestBody AccountUser user) throws Exception {
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));		
 		AccountUser u = userRepository.findByUserName(user.getUserName());
 		if(u == null) {
 			userRepository.createUser(user);

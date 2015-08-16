@@ -31,7 +31,7 @@ app.controller("RegistrationController", [ '$scope', '$http',
 			};
 		} ]);
 
-app.controller("loginController", [ '$scope', '$http', function($scope, $http) {
+app.controller("loginController", [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 
 	$scope.login = function() {
 
@@ -44,6 +44,7 @@ app.controller("loginController", [ '$scope', '$http', function($scope, $http) {
 			$scope.message = data;
 			$scope.inputEmail = '';
 			$scope.password = '';
+			$rootScope.loggedIn = 'true';
 			window.location = '#/';
 		});
 		res.error(function(data, status, headers, config) {
@@ -55,6 +56,41 @@ app.controller("loginController", [ '$scope', '$http', function($scope, $http) {
 		//
 
 	};
+} ]);
+
+app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+
+	   $scope.isLoggedIn = function() {
+
+		      $http.get('/9lakha/account/user/checklogin')
+		        .success(function(data) {
+		          console.log(data);
+		          $rootScope.loggedIn = data;
+		        })
+		        .error(function(data) {
+		          console.log('error: ' + data);
+		        });
+		    };
+		$scope.search = function() {
+
+			var searchObj = {
+				searchText : $scope.searchText
+			};
+			var res = $http.post('/9lakha/product/search', searchObj);
+			res.success(function(data, status, headers, config) {
+				$scope.message = data;
+				$scope.inputEmail = '';
+				$scope.password = '';
+				$scope.firstName = '';
+				$scope.lastName = '';
+				window.location = '#/';
+			});
+			res.error(function(data, status, headers, config) {
+				alert("failure message: " + JSON.stringify({
+					data : data
+				}));
+			});
+		};
 } ]);
 
 app.directive("oneBlog", function() {
@@ -95,6 +131,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 		controller : "PageCtrl"
 	}).when("/customdesign", {
 		templateUrl : "resources/partials/customdesign.html",
+		controller : "PageCtrl"
+	}).when("/selljwel", {
+		templateUrl : "resources/partials/selljwel.html",
 		controller : "PageCtrl"
 	})
 	
@@ -140,3 +179,64 @@ app.controller('PageCtrl', function(/* $scope, $location, $http */) {
 		selector : "a[data-toggle=tooltip]"
 	})
 });
+
+
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
+
+app.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl, data){
+        var fd = new FormData();
+        fd.append('fileToUpload', file);
+        fd.append('productId', data.id);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+        	window.location = '#/';
+        })
+        .error(function(){
+        });
+    }
+}]);
+
+app.controller('myCtrl', ['$http','$scope', 'fileUpload', function($http, $scope, fileUpload){
+    
+    $scope.uploadFile = function(){
+        var file = $scope.myFile;
+        console.log('file is ' );
+        console.dir(file);
+        var uploadUrl = "/9lakha/user/addproductimage";
+		var productObj = {
+				productName : $scope.productName,
+				productDescription : $scope.productDescription
+			};
+		var res = $http.post('/9lakha/user/createproduct', productObj);
+		res.success(function(data, status, headers, config) {
+			$scope.message = data;
+			$scope.productId = data._id;
+			$scope.inputEmail = '';
+			fileUpload.uploadFileToUrl(file, uploadUrl, data);
+		});
+		res.error(function(data, status, headers, config) {
+			alert("failure message: " + JSON.stringify({
+				data : data
+			}));
+		});		
+    };
+    
+}]);

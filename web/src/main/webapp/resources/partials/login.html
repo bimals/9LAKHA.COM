@@ -22,31 +22,37 @@
     </div>
     <!-- /.row -->
 	<div class="row" ng-app="loginApp" role="main">
-	    <form class="form-horizontal" ng-controller="loginController" ng-submit="login()">
-	        <div class="form-group">
-	            <label for="inputEmail" class="control-label col-xs-2">Email</label>
-	            <div class="col-xs-10">
-	                <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model="inputEmail">
-	            </div>
-	        </div>
-	        <div class="form-group">
-	            <label for="inputPassword" class="control-label col-xs-2">Password</label>
-	            <div class="col-xs-10">
-	                <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="password">
-	            </div>
-	        </div>	          
-	        <div class="form-group">
-	            <div class="col-xs-offset-2 col-xs-10">
-	                <div class="checkbox">
-	                    <label><input type="checkbox"> Remember Me</label>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="form-group">
-	            <div class="col-xs-offset-2 col-xs-10">
-	                <button type="submit" class="btn btn-primary">Login</button>
-	            </div>
-	        </div>
+	    <form class="form-horizontal" ng-controller="loginController" action="/9lakha/j_spring_security_check" method='POST'>
+			<div class="control-group">
+						<label for="j_username" class="control-label">User Email</label>
+							<div class="controls">
+								<input type="text" name="j_username" id="j_username" value="" class="input-xlarge" size="30" onkeypress="resetErrorMsg(this)" />
+								<div class="error help-inline" id="j_username_error"></div>
+								<div id="j_username_valid" style="display:none;"> 
+								</div>
+							</div>
+					</div>
+					
+					<div class="control-group">
+						<label for="j_password" class="control-label">User Password</label>
+							<div class="controls">
+								<input type="password" name="j_password" id="j_password" value="" class="input-xlarge" size="30" onkeypress="resetErrorMsg(this)">
+								<div class="error help-inline" id="j_password_error" name="j_password_error"></div>
+							</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="controls">
+                        <div class="clearfix nmhide mshide">
+                            <label class="checkbox inline"> 
+                                <input type="checkbox" name="_spring_security_remember_me"> <span>
+                                Remember Me
+                            </label>
+						</div>
+                        <input type="submit"  id="submit" value="Login" class="btn btn-primary btn-large margin10-t">                        
+						</div>
+					</div>
+					
 	    </form>
 	</div>
 </div>	

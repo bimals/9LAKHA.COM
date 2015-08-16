@@ -40,16 +40,22 @@
 		
 		<!-- START :: LIST OF UN SECURIED URLS -->
 		<intercept-url pattern="/"  access="permitAll" />
+		<intercept-url pattern="/index.jsp"  access="permitAll" />
+		<intercept-url pattern="/default/**" access="permitAll" />
 		<intercept-url pattern="/9lakha/**"  access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/9lakha/resources/**" access="permitAll" />
+		<intercept-url pattern="/account/user/create**" access="permitAll" />
+		<intercept-url pattern="/account/user/checklogin**" access="permitAll" />
+		<intercept-url pattern="/product/search**" access="permitAll" />
+		
 		<!-- END :: LIST OF UN SECURIED URLS -->
 		<intercept-url pattern="/**/**" access="isAuthenticated()" />
 		<form-login always-use-default-target="true" 
-				login-page="/account/user/login?confirmId=Y" 
+				login-page="/#/" 
 				authentication-success-handler-ref="ghixSuccessHandler" 
 				authentication-failure-handler-ref="ghixFailureHandler"
-				default-target-url="/account/user/loginSuccess" />
+				default-target-url="/#/" />
 			
 		<logout 
 				delete-cookies="JSESSIONID"
@@ -67,16 +73,16 @@
       </beans:bean>
 	
 	<beans:bean id="ghixSuccessHandler" class="blog.platform.authentication.UrlAuthenticationSuccessHandler">
-	 	<beans:property name="defaultTargetUrl" value="/account/user/loginSuccess"/>
-	 	<beans:property name="baseGhixAuthContext" value="/hix"/>
+	 	<beans:property name="defaultTargetUrl" value="/#/"/>
+	 	<beans:property name="baseGhixAuthContext" value="/9lakha"/>
 	</beans:bean>
 	
 	<beans:bean id="ghixFailureHandler" class="blog.platform.authentication.UrlAuthenticationFailureHandler">
-	 	<beans:property name="defaultFailureUrl" value="/account/user/loginfailed"/>
+	 	<beans:property name="defaultFailureUrl" value="/#/login"/>
 	</beans:bean>
 	
 	<beans:bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource"
-		 p:userPropertyToUse="uuid" />
+		 p:userPropertyToUse="id" />
 	
 	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
     <beans:property name="basenames">  
@@ -87,15 +93,10 @@
 	</beans:bean> 
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	<beans:bean id="customUserDetailsService" class="blog.platform.authentication.CustomUserDetailsService" />
-
-	<beans:bean id="ghixDaoAuthenticationProvider"
-	    class="blog.platform.authentication.DaoAuthenticationProvider"
-	    p:passwordEncoder-ref="passwordEncoder"
-	    p:saltSource-ref="saltSource"
-	    p:userDetailsService-ref="customUserDetailsService" />
-    
+	<beans:bean id="ghixDaoAuthenticationProvider" class="blog.platform.authentication.DaoAuthenticationProvider" />
+   
 	<authentication-manager>
 	    <authentication-provider ref="ghixDaoAuthenticationProvider" />
 	</authentication-manager>
-
+	
 </beans:beans>

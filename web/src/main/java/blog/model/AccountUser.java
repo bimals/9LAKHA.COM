@@ -1,7 +1,9 @@
 package blog.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +21,7 @@ public class AccountUser implements Serializable,Cloneable, UserDetails {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private List<String> productId;
 	
 	public String getId() {
 		return id;
@@ -57,21 +60,30 @@ public class AccountUser implements Serializable,Cloneable, UserDetails {
 
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	public String getUsername() {
 		return userName;
+	}
+	public List<String> getProductId() {
+		if(productId == null) {
+			return new ArrayList<String>();
+		}
+		return productId;
+	}
+	public void setProductId(List<String> productId) {
+		this.productId = productId;
 	}	
 }

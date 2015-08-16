@@ -28,7 +28,7 @@ public class UserRepository implements IUserRepository {
         return this.mongoOps.findOne(query, AccountUser.class, USER_COLLECTION);
 	}
 	public void update(AccountUser user) {
-		// TODO Auto-generated method stub	
+		this.mongoOps.save(user, USER_COLLECTION);		
 	}
 	
 }

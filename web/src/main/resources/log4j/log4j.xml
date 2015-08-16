@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%5p %d{MM/dd/yyyy HH:mm:ss} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${GHIX_HOME}/ghix-setup/logs/ghix.log" />
+		<param name="Append" value="true" />
+		<param name="Threshold" value="INFO"/> <!-- set as per env definition -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- Add %C to get full package name if required. -->
+			<param name="ConversionPattern" value="[%t] %5p %d{MM/dd/yyyy HH:mm:ss} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- Audit Log -->
+	<appender name="giAuditFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${GHIX_HOME}/ghix-setup/logs/ghix-audit.log" />
+		<param name="Append" value="true" />
+		<param name="Threshold" value="INFO"/>	<!-- this should always be INFO on all envs -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- Add %C to get full package name if required. -->
+			<param name="ConversionPattern" value="%d{MM/dd/yyyy HH:mm:ss} %5p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Application events exception logs -->
+	<appender name="appEventLogFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${GHIX_HOME}/ghix-setup/logs/ghix-app-event.log" />
+		<param name="Append" value="true" />
+		<param name="Threshold" value="INFO"/>	<!-- this should always be INFO on all envs -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- Add %C to get full package name if required. -->
+			<param name="ConversionPattern" value="%d{MM/dd/yyyy HH:mm:ss} %5p - %m%n" />
+		</layout>
+	</appender>
+	
+<!-- 	<appender name="btmfile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${GHIX_HOME}/ghix-setup/logs/ghix-btm.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%5p %d{MM/dd/yyyy HH:mm:ss} (%F:%L) - %m%n" />
+		</layout>
+	</appender> -->
+	
+	<appender name="serffFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${GHIX_HOME}/ghix-setup/logs/serff-ws.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- Add %C to get full package name if required. -->
+			<param name="ConversionPattern" value="%5p %d{MM/dd/yyyy HH:mm:ss} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="batchFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${GHIX_HOME}/ghix-setup/logs/ghix-batch.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- Add %C to get full package name if required. -->
+			<param name="ConversionPattern" value="%5p %d{MM/dd/yyyy HH:mm:ss} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="wsLogFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${GHIX_HOME}/ghix-setup/logs/ghix-ws.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- Add %C to get full package name if required. -->
+			<param name="ConversionPattern" value="%5p %d{MM/dd/yyyy HH:mm:ss} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- Application Loggers -->
+
+	<logger name="com.getinsured.hix">
+		<level value="warn" />
+	</logger>
+	
+	<logger name="com.getinsured.ahbx">
+         <level value="warn" />
+    </logger>
+	
+	<logger name="com.serff">
+		<level value="warn" />
+		<appender-ref ref="serffFile" />
+	</logger>
+	
+	<logger name="com.getinsured.hix.batch">
+		<level value="info" />
+		<appender-ref ref="batchFile" />
+	</logger>
+
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework">
+		<level value="warn" />
+	</logger>
+	<logger name="org.apache.tomcat.util.http.Parameters">
+		<level value="warn" />
+	</logger>
+<!-- 	<logger name="bitronix.tm">
+		<level value="debug" />
+		<appender-ref ref="btmfile" />
+	</logger> -->
+	<logger name="net.sf.hibernate">
+		<level value="warn" />
+	</logger>
+	<logger name="org.hibernate">
+			<level value="warn" />
+	</logger>
+	<logger name="org.springframework.ws.soap.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor">
+		<level value="warn" />
+		<appender-ref ref="wsLogFile" />
+	</logger>
+	<logger name="org.hibernate.SQL">
+     <level value="warn"/>
+	</logger>
+	<logger name="org.hibernate.type">
+     <level value="warn"/>
+	</logger>
+	
+	<!-- Audit -->
+	<logger name="com.getinsured.hix.platform.auditor.advice.GiAuditorService">
+		<level value="info" />
+		<appender-ref ref="giAuditFile" />
+	</logger>
+	
+	<!-- Application events exception logs -->
+	<logger name="com.getinsured.hix.platform.eventlog">
+		<level value="info" />
+		<appender-ref ref="appEventLogFile" />
+	</logger>
+	
+	<!-- Root Logger -->
+	<root>
+		<priority value="error" />
+		<appender-ref ref="console" />
+	</root>
+
+</log4j:configuration>

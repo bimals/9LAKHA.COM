@@ -24,6 +24,8 @@
                 </li>
                 <li><a href="#/contact">Contact</a>
                 </li>
+                <li><a href="#/selljwel">Add Product</a>
+                </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">Custom Orders <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -33,8 +35,17 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="#/login">Login</a>
+                <li><a href="#/login" ng-show="!loggedIn">Login</a>
                 </li>
+                <li class="dropdown" ng-show="loggedIn">
+                    <a class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/blog">My Orders</a>
+                        </li>
+                        <li><a href="#/blog/post">Log Out</a>
+                        </li>
+                    </ul>
+                </li>          
             </ul>
         </div>
         <!-- /.navbar-collapse -->
