@@ -48,6 +48,8 @@
 		<intercept-url pattern="/account/user/create**" access="permitAll" />
 		<intercept-url pattern="/account/user/checklogin**" access="permitAll" />
 		<intercept-url pattern="/product/search**" access="permitAll" />
+		<intercept-url pattern="/product/image/**" access="permitAll" />
+		
 		
 		<!-- END :: LIST OF UN SECURIED URLS -->
 		<intercept-url pattern="/**/**" access="isAuthenticated()" />

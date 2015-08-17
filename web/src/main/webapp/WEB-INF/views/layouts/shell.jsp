@@ -18,6 +18,8 @@
 	<script src="/9lakha/resources/js/angular.js"></script>
 	<script src="/9lakha/resources/js/angular-route.js"></script>
 	<script src="/9lakha/resources/js/bs.js"></script>
+	<script src="/9lakha/resources/js/ng-infinite-scroll.js"></script>
+	
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>

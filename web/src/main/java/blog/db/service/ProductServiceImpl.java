@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.mongodb.gridfs.GridFSDBFile;
+
 import blog.db.repository.IProductRepository;
 import blog.model.Product;
+import blog.model.SearchCriteria;
 
 @Service
 @Qualifier("productService")
@@ -32,8 +35,13 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 
-	public List<Product> searchProductByKeyWord(String searchText) {
-		return productRepository.searchProductByKeyWord(searchText);
+	public List<Product> searchProductByKeyWord(SearchCriteria searchCriteria) {
+		return productRepository.searchProductByKeyWord(searchCriteria);
 	}
+
+	public GridFSDBFile getProductImage(String imageId) {
+		return productRepository.getProductImage(imageId);
+	}
+
 
 }

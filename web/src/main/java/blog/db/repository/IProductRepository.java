@@ -7,7 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.mongodb.gridfs.GridFSDBFile;
+
 import blog.model.Product;
+import blog.model.SearchCriteria;
 
 @Repository
 public interface IProductRepository {
@@ -22,5 +25,7 @@ public interface IProductRepository {
 
 	public void addProductImage(Product product, CommonsMultipartFile fileToUpload) throws IOException;
 
-	public List<Product> searchProductByKeyWord(String searchText);
+	public List<Product> searchProductByKeyWord(SearchCriteria searchCriteria);
+
+	public GridFSDBFile getProductImage(String imageId);
 }

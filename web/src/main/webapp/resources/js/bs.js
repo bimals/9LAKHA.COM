@@ -1,4 +1,4 @@
-var app = angular.module("bs", ['ngRoute']);
+var app = angular.module("bs", ['ngRoute', 'infinite-scroll']);
 
 app.controller("RegistrationController", [ '$scope', '$http',
 		function($scope, $http) {
@@ -59,6 +59,10 @@ app.controller("loginController", [ '$scope', '$http', '$rootScope', function($s
 } ]);
 
 app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+	
+		$scope.products = [];
+		$scope.after;
+		$scope.busy = false;
 
 	   $scope.isLoggedIn = function() {
 
@@ -71,19 +75,21 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($sc
 		          console.log('error: ' + data);
 		        });
 		    };
-		$scope.search = function() {
+		   
+		$scope.search = function(skip) {
 
 			var searchObj = {
-				searchText : $scope.searchText
+				searchText : $scope.searchText,
+				skip : skip,
+				
 			};
 			var res = $http.post('/9lakha/product/search', searchObj);
 			res.success(function(data, status, headers, config) {
-				$scope.message = data;
-				$scope.inputEmail = '';
-				$scope.password = '';
-				$scope.firstName = '';
-				$scope.lastName = '';
-				window.location = '#/';
+				for (var int = 0; int < data.length; int++) {
+					$scope.products.push(data[int]);
+				}
+				$scope.after = $scope.products[$scope.products.length - 1].id;
+			    $scope.busy = false;
 			});
 			res.error(function(data, status, headers, config) {
 				alert("failure message: " + JSON.stringify({
@@ -91,6 +97,34 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($sc
 				}));
 			});
 		};
+		
+		$scope.searchMore = function(skip) {
+			if (this.busy)  {
+				$scope.busy = true;
+				return;
+			}
+				
+			var searchObj = {
+				searchText : $scope.searchText,
+				skip : skip,
+				after : $scope.after
+			};
+			var res = $http.post('/9lakha/product/search', searchObj);
+			res.success(function(data, status, headers, config) {
+				for (var int = 0; int < data.length; int++) {
+					$scope.products.push(data[int]);
+				}
+				
+				if(data.length == 0) {
+					$scope.busy = true;
+				}
+			});
+			res.error(function(data, status, headers, config) {
+				alert("failure message: " + JSON.stringify({
+					data : data
+				}));
+			});
+		};	
 } ]);
 
 app.directive("oneBlog", function() {

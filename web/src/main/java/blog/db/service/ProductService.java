@@ -6,7 +6,10 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.mongodb.gridfs.GridFSDBFile;
+
 import blog.model.Product;
+import blog.model.SearchCriteria;
 
 public interface ProductService {
 	
@@ -16,6 +19,8 @@ public interface ProductService {
 
 	void addProductImage(Product product, CommonsMultipartFile fileToUpload) throws IOException;
 
-	List<Product> searchProductByKeyWord(String searchText);
+	List<Product> searchProductByKeyWord(SearchCriteria searchCriteria);
+
+	GridFSDBFile getProductImage(String imageId);
 
 }
