@@ -3,31 +3,72 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <h1 class="page-header">Login
-                <small>Welcome Back</small>
+            <h1 class="page-header">Login/Register
+                <small>Welcome to Online Jewelry Marketplace</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#/">Home</a></li>
-                <li class="active">Login</li>
+                <li class="active">Login or Register</li>
             </ol>
         </div>
-
-<!--         <div class="col-lg-12">
-            Embedded Google Map using an iframe - to select your location find it on Google maps and paste the link as the iframe src. If you want to use the Google Maps API instead then have at it!
-            <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                    src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.3585254,-122.02900778&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>
-                   
-        </div> -->
-
     </div>
-    <!-- /.row -->
-	<div class="row" ng-app="loginApp" role="main">
+</div>	
+
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-8">
+            <h3>New User!!! Register Now!!</h3>
+	    <form class="form-horizontal" ng-controller="RegistrationController" ng-submit="registerUser()">
+	        <div class="form-group">
+	            <label for="inputEmail" class="control-label col-xs-2">Email</label>
+	            <div class="col-xs-10">
+	                <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model="inputEmail">
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label for="inputPassword" class="control-label col-xs-2">Password</label>
+	            <div class="col-xs-10">
+	                <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="password">
+	            </div>
+	        </div>	        
+	        <div class="form-group">
+	            <label for="firstName" class="control-label col-xs-2">First Name</label>
+	            <div class="col-xs-10">
+	                <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="firstName">
+	            </div>
+	        </div>	      
+	        <div class="form-group">
+	            <label for="lastName" class="control-label col-xs-2">Last Name</label>
+	            <div class="col-xs-10">
+	                <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="lastName">
+	            </div>
+	        </div>	 	          
+	        <div class="form-group">
+	            <div class="col-xs-offset-2 col-xs-10">
+	                <div class="checkbox">
+	                    <label><input type="checkbox"> Terms and Conditions</label>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <div class="col-xs-offset-2 col-xs-10">
+	                <button type="submit" class="btn btn-primary">Register</button>
+	            </div>
+	        </div>
+	    </form>
+        </div>
+
+        <div class="col-sm-4">
+        <h3>Welcome Back! Login.</h3>
 	    <form class="form-horizontal" ng-controller="loginController" action="/9lakha/j_spring_security_check" method='POST'>
 			<div class="control-group">
 						<label for="j_username" class="control-label">User Email</label>
 							<div class="controls">
 								<input type="text" name="j_username" id="j_username" value="" class="input-xlarge" size="30" onkeypress="resetErrorMsg(this)" />
-								<div class="error help-inline" id="j_username_error"></div>
+								<!-- <div class="error help-inline" id="j_username_error"></div> -->
 								<div id="j_username_valid" style="display:none;"> 
 								</div>
 							</div>
@@ -37,13 +78,13 @@
 						<label for="j_password" class="control-label">User Password</label>
 							<div class="controls">
 								<input type="password" name="j_password" id="j_password" value="" class="input-xlarge" size="30" onkeypress="resetErrorMsg(this)">
-								<div class="error help-inline" id="j_password_error" name="j_password_error"></div>
+								<!-- <div class="error help-inline" id="j_password_error" name="j_password_error"></div> -->
 							</div>
 					</div>
 					
 					<div class="control-group">
 						<div class="controls">
-                        <div class="clearfix nmhide mshide">
+                        <div class="control-group">
                             <label class="checkbox inline"> 
                                 <input type="checkbox" name="_spring_security_remember_me"> <span>
                                 Remember Me
@@ -54,5 +95,9 @@
 					</div>
 					
 	    </form>
-	</div>
-</div>	
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div><!-- /.container -->

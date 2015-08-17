@@ -2,7 +2,7 @@
 <html ng-app="bs">
 <head>
     <!-- Meta-Information -->
-    <title>Accounting And Taxation</title>
+    <title>Online Jewelry MarketPlace</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="9LAKHA.COM">
@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="/9lakha/resources/css/bootstrap-theme.css"/>	
 	<link rel="stylesheet" type="text/css" media="screen" href="/9lakha/resources/css/bootstrap.css"/>	
 	<link rel="stylesheet" type="text/css" media="screen" href="/9lakha/resources/css/custom.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/9lakha/resources/css/font-awesome.css" />
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="/9lakha/resources/js/bootstrap.js"></script>
@@ -19,8 +20,6 @@
 	<script src="/9lakha/resources/js/angular-route.js"></script>
 	<script src="/9lakha/resources/js/bs.js"></script>
 	<script src="/9lakha/resources/js/ng-infinite-scroll.js"></script>
-	
-	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 	<tiles:insertAttribute name="masthead" />

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mongodb.gridfs.GridFSDBFile;
 
+import blog.db.service.DesignService;
 import blog.db.service.ProductService;
+import blog.model.Design;
 import blog.model.Product;
 import blog.model.SearchCriteria;
 
@@ -25,6 +27,7 @@ import blog.model.SearchCriteria;
 public class SearchController {
 	
 	@Autowired ProductService productService;
+	@Autowired DesignService designService;
 	
 	@RequestMapping(value="product/search", method = RequestMethod.POST)
 	@ResponseBody
@@ -32,6 +35,14 @@ public class SearchController {
 		List<Product> products = productService.searchProductByKeyWord(searchCriteria);
 		
 		return products;
+	}
+	
+	@RequestMapping(value="design/search", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Design> searchDesign(@RequestBody SearchCriteria searchCriteria) {
+		List<Design> designs = designService.searchDesignByKeyWord(searchCriteria);
+		
+		return designs;
 	}
 	
 	@RequestMapping(value="/product/image/{imageId}", method = RequestMethod.GET)

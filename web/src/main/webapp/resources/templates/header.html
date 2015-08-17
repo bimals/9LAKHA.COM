@@ -24,11 +24,13 @@
                 </li>
                 <li><a href="#/contact">Contact</a>
                 </li>
-                <li><a href="#/selljwel">Add Product</a>
+                <li><a href="#/selljwel" ng-show="loggedIn">Add Product</a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown" ng-show="loggedIn">
                     <a class="dropdown-toggle" data-toggle="dropdown">Custom Orders <b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        <li><a href="#/newdesign">Add Custom Designs</a>
+                        </li>
                         <li><a href="#/blog">List of Orders</a>
                         </li>
                         <li><a href="#/blog/post">View One Order</a>

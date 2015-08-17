@@ -169,7 +169,11 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when("/selljwel", {
 		templateUrl : "resources/partials/selljwel.html",
 		controller : "PageCtrl"
+	}).when("/newdesign", {
+		templateUrl : "resources/partials/addcustomdesign.html",
+		controller : "PageCtrl"
 	})
+	
 	
 	
 	// Blog
@@ -246,6 +250,21 @@ app.service('fileUpload', ['$http', function ($http) {
         .error(function(){
         });
     }
+    
+    this.uploadDesignFileToUrl = function(file, uploadUrl, data){
+        var fd = new FormData();
+        fd.append('fileToUpload', file);
+        fd.append('designId', data.id);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+        	window.location = '#/customdesign';
+        })
+        .error(function(){
+        });
+    }
 }]);
 
 app.controller('myCtrl', ['$http','$scope', 'fileUpload', function($http, $scope, fileUpload){
@@ -273,4 +292,84 @@ app.controller('myCtrl', ['$http','$scope', 'fileUpload', function($http, $scope
 		});		
     };
     
+}]);
+
+app.controller('CustomDesignController', ['$http','$scope', 'fileUpload', function($http, $scope, fileUpload){
+	
+	$scope.designs = [];
+	$scope.after;
+	$scope.busy = false;
+    
+    $scope.uploadFile = function(){
+        var file = $scope.myFile;
+        console.log('file is ' );
+        console.dir(file);
+        var uploadUrl = "/9lakha/user/addcustomdesignimage";
+		var customDesignObj = {
+				designName : $scope.designName,
+				designDescription : $scope.designDescription
+			};
+		var res = $http.post('/9lakha/user/addcustomdesign', customDesignObj);
+		res.success(function(data, status, headers, config) {
+			$scope.message = data;
+			$scope.productId = data._id;
+			$scope.inputEmail = '';
+			fileUpload.uploadDesignFileToUrl(file, uploadUrl, data);
+		});
+		res.error(function(data, status, headers, config) {
+			alert("failure message: " + JSON.stringify({
+				data : data
+			}));
+		});		
+    };
+    
+	$scope.searchDesign = function(skip) {
+
+		var searchObj = {
+			searchText : $scope.searchText,
+			skip : skip,
+			
+		};
+		var res = $http.post('/9lakha/design/search', searchObj);
+		res.success(function(data, status, headers, config) {
+			for (var int = 0; int < data.length; int++) {
+				$scope.designs.push(data[int]);
+			}
+			$scope.after = $scope.designs[$scope.designs.length - 1].id;
+		    $scope.busy = false;
+		});
+		res.error(function(data, status, headers, config) {
+			alert("failure message: " + JSON.stringify({
+				data : data
+			}));
+		});
+	};
+	
+	$scope.searchMoreDesigns = function(skip) {
+		if (this.busy)  {
+			$scope.busy = true;
+			return;
+		}
+			
+		var searchObj = {
+			searchText : $scope.searchText,
+			skip : skip,
+			after : $scope.after
+		};
+		var res = $http.post('/9lakha/design/search', searchObj);
+		res.success(function(data, status, headers, config) {
+			for (var int = 0; int < data.length; int++) {
+				$scope.designs.push(data[int]);
+			}
+			
+			if(data.length == 0) {
+				$scope.busy = true;
+			}
+		});
+		res.error(function(data, status, headers, config) {
+			alert("failure message: " + JSON.stringify({
+				data : data
+			}));
+		});
+	};	    
 }]);

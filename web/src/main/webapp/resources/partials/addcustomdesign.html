@@ -1,0 +1,84 @@
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">Add New Custom Design to Order
+                <small>We'd Love to Hear From You!</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#/">Home</a></li>
+                <li class="active">Add Custom Design</li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+
+        <div class="col-sm-8">
+            <h3>Design Information</h3>
+
+            <p>Tell Us About Your Custom Design.</p>
+
+            <form role="form" ng-controller = "CustomDesignController" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="form-group col-lg-12">
+                        <label for="input1">Design Title</label>
+                        <input type="text" name="contact_name" class="form-control" id="input1" ng-model="designName">
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label for="input3">Design Category</label>
+                        <input type="phone" name="contact_phone" class="form-control" id="input3">
+                    </div>
+					<span class="btn btn-default btn-file"> Browse <input type="file" file-model="myFile"/>
+					</span>
+					<div class="clearfix"></div>
+                    <div class="form-group col-lg-12">
+                        <label for="input4">Design Description</label>
+                        <textarea name="contact_message" class="form-control" rows="6" id="input4" ng-model="designDescription"></textarea>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <input type="hidden" name="save" value="contact">
+                        <button class="btn btn-primary" ng-click="uploadFile()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <h3>9LAKHA.COM</h3>
+            <h4>A Jewelry MarketPlace</h4>
+
+            <p>
+                400 E Remington Drive, C125<br>
+                Sunnyvale, CA 94087<br>
+            </p>
+
+            <p><i class="fa fa-phone"></i> <abbr title="Phone">P</abbr>: (415) 579-8091</p>
+
+            <p><i class="fa fa-envelope-o"></i> <abbr title="Email">E</abbr>: <a
+                    href="mailto:feedback@startbootstrap.com">feedback@9lakha.com</a></p>
+
+            <p><i class="fa fa-clock-o"></i> <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM</p>
+            <ul class="list-unstyled list-inline list-social-icons">
+                <li class="tooltip-social facebook-link"><a href="#facebook-page" data-toggle="tooltip"
+                                                            data-placement="top" title="Facebook"><i
+                        class="fa fa-facebook-square fa-2x"></i></a></li>
+                <li class="tooltip-social linkedin-link"><a href="#linkedin-company-page" data-toggle="tooltip"
+                                                            data-placement="top" title="LinkedIn"><i
+                        class="fa fa-linkedin-square fa-2x"></i></a></li>
+                <li class="tooltip-social twitter-link"><a href="#twitter-profile" data-toggle="tooltip"
+                                                           data-placement="top" title="Twitter"><i
+                        class="fa fa-twitter-square fa-2x"></i></a></li>
+                <li class="tooltip-social google-plus-link"><a href="#google-plus-page" data-toggle="tooltip"
+                                                               data-placement="top" title="Google+"><i
+                        class="fa fa-google-plus-square fa-2x"></i></a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div><!-- /.container -->

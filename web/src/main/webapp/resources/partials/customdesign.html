@@ -1,18 +1,20 @@
+<div ng-controller="CustomDesignController" ng-init="searchDesign(3);isLoggedIn();">
 <div class="container" style="margin-top:20px">
 
     <div class="row well">
 		<div class="col-lg-6">
+		<form class="form-horizontal">
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for...">
+				<input type="text" class="form-control" placeholder="Search for..." ng-model="searchText">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Go!</button>
+					<button class="btn btn-default" ng-click="searchDesign(3)">Go!</button>
 				</span>
 			</div>
-			<!-- /input-group -->
+			</form>
 		</div>
 		<!-- /.col-lg-6 -->
 		<div class="col-lg-4 col-md-4">
-            <a class="btn btn-lg btn-primary pull-right" href="#/pricing">Start Selling Now!</a>
+            <a class="btn btn-lg btn-primary pull-right" ng-show="!loggedIn" href="#/pricing">Start Selling Now!</a>
         </div>
     </div>
 
@@ -21,42 +23,58 @@
 <div class="section">
 
     <div class="container">
-
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2>Some of our best work is displayed below!!</h2>
-                <hr>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-home-portfolio" src="/9lakha/resources/img/image1.jpg">
+        <div class="row" ng-repeat="design in designs" ng-if="$index % 3 == 0" class="row" infinite-scroll="searchMoreDesigns(3)" infinite-scroll-disabled="busy">
+<!--             <div class="col-lg-4 col-md-4 col-sm-6">
+                <a href="#/jwel/details">
+                    <img class="img-responsive img-home-portfolio" src="/9lakha/design/image/{{design.id + '-' + design.designUUID}}">
                 </a>
-            </div>
+            </div> -->
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="#/jwel/details">
                     <img class="img-responsive img-home-portfolio" src="/9lakha/resources/img/image2.jpg">
+                    <div class="caption">
+						<div class="row">
+							<div class="col-md-6 col-xs-6">
+								<p>{{designs[$index].designName}}</p>
+							</div>
+							<div class="col-md-6 col-xs-6">
+								<p>$9.99</p>
+							</div>
+						</div>
+					</div>
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="#/jwel/details">
                     <img class="img-responsive img-home-portfolio" src="/9lakha/resources/img/image3.jpg">
+                    <div class="caption">
+						<div class="row">
+							<div class="col-md-6 col-xs-6">
+								<p>{{designs[$index + 1].designName}}</p>
+							</div>
+							<div class="col-md-6 col-xs-6">
+								<p>$9.99</p>
+							</div>
+						</div>
+					</div>                    
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="#/jwel/details">
                     <img class="img-responsive img-home-portfolio" src="/9lakha/resources/img/image4.jpg">
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-home-portfolio" src="/9lakha/resources/img/image5.jpg">
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-home-portfolio" src="/9lakha/resources/img/images6.jpg">
+                    <div class="caption">
+						<div class="row">
+							<div class="col-md-6 col-xs-6">
+								<p>{{designs[$index + 2].designName}}</p>
+							</div>
+							<div class="col-md-6 col-xs-6">
+								<p>$9.99</p>
+							</div>
+						</div>
+					</div>                    
                 </a>
             </div>
         </div>
+    </div>
     </div>
     </div>
