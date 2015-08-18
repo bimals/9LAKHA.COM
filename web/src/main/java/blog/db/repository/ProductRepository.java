@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -94,7 +95,7 @@ public class ProductRepository implements IProductRepository{
 			criteria = Criteria.where("_id").gt(searchCriteria.getAfter()).andOperator(criteria);
 		}
 
-		Query query = new Query(criteria).limit(20).with(new Sort("_id"));
+		Query query = new Query(criteria).limit(20).with(new Sort(Direction.DESC, "_id"));
 		return mongoOps.find(query, Product.class, PRODUCT_COLLECTION);
 	}
 

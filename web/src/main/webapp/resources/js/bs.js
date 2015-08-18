@@ -62,7 +62,7 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($sc
 	
 		$scope.products = [];
 		$scope.after;
-		$scope.busy = false;
+		$scope.busy = true;
 
 	   $scope.isLoggedIn = function() {
 
