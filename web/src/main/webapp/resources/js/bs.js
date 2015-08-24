@@ -11,14 +11,14 @@ app.controller("RegistrationController", [ '$scope', '$http',
 					firstName : $scope.firstName,
 					lastName : $scope.lastName
 				};
-				var res = $http.post('/9lakha/account/user/create', userObj);
+				var res = $http.post('/jewelhaat/account/user/create', userObj);
 				res.success(function(data, status, headers, config) {
 					$scope.message = data;
 					$scope.inputEmail = '';
 					$scope.password = '';
 					$scope.firstName = '';
 					$scope.lastName = '';
-					window.location = '/9lakha/account/user/loginSuccess';
+					window.location = '/jewelhaat/account/user/loginSuccess';
 				});
 				res.error(function(data, status, headers, config) {
 					alert("failure message: " + JSON.stringify({
@@ -39,7 +39,7 @@ app.controller("loginController", [ '$scope', '$http', '$rootScope', function($s
 			userName : $scope.inputEmail,
 			password : $scope.password
 		};
-		var res = $http.post('/9lakha/account/user/login', userObj);
+		var res = $http.post('/jewelhaat/account/user/login', userObj);
 		res.success(function(data, status, headers, config) {
 			$scope.message = data;
 			$scope.inputEmail = '';
@@ -66,7 +66,7 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($sc
 
 	   $scope.isLoggedIn = function() {
 
-		      $http.get('/9lakha/account/user/checklogin')
+		      $http.get('/jewelhaat/account/user/checklogin')
 		        .success(function(data) {
 		          console.log(data);
 		          $rootScope.loggedIn = data;
@@ -83,7 +83,7 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($sc
 				skip : skip,
 				
 			};
-			var res = $http.post('/9lakha/product/search', searchObj);
+			var res = $http.post('/jewelhaat/product/search', searchObj);
 			res.success(function(data, status, headers, config) {
 				for (var int = 0; int < data.length; int++) {
 					$scope.products.push(data[int]);
@@ -109,7 +109,7 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($sc
 				skip : skip,
 				after : $scope.after
 			};
-			var res = $http.post('/9lakha/product/search', searchObj);
+			var res = $http.post('/jewelhaat/product/search', searchObj);
 			res.success(function(data, status, headers, config) {
 				for (var int = 0; int < data.length; int++) {
 					$scope.products.push(data[int]);
@@ -130,7 +130,7 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', function($sc
 app.directive("oneBlog", function() {
 	return {
 		restrict : 'E',
-		templateUrl : '/9lakha/account/user/login'
+		templateUrl : '/jewelhaat/account/user/login'
 	}
 });
 
@@ -273,12 +273,12 @@ app.controller('myCtrl', ['$http','$scope', 'fileUpload', function($http, $scope
         var file = $scope.myFile;
         console.log('file is ' );
         console.dir(file);
-        var uploadUrl = "/9lakha/user/addproductimage";
+        var uploadUrl = "/jewelhaat/user/addproductimage";
 		var productObj = {
 				productName : $scope.productName,
 				productDescription : $scope.productDescription
 			};
-		var res = $http.post('/9lakha/user/createproduct', productObj);
+		var res = $http.post('/jewelhaat/user/createproduct', productObj);
 		res.success(function(data, status, headers, config) {
 			$scope.message = data;
 			$scope.productId = data._id;
@@ -304,12 +304,12 @@ app.controller('CustomDesignController', ['$http','$scope', 'fileUpload', functi
         var file = $scope.myFile;
         console.log('file is ' );
         console.dir(file);
-        var uploadUrl = "/9lakha/user/addcustomdesignimage";
+        var uploadUrl = "/jewelhaat/user/addcustomdesignimage";
 		var customDesignObj = {
 				designName : $scope.designName,
 				designDescription : $scope.designDescription
 			};
-		var res = $http.post('/9lakha/user/addcustomdesign', customDesignObj);
+		var res = $http.post('/jewelhaat/user/addcustomdesign', customDesignObj);
 		res.success(function(data, status, headers, config) {
 			$scope.message = data;
 			$scope.productId = data._id;
@@ -330,7 +330,7 @@ app.controller('CustomDesignController', ['$http','$scope', 'fileUpload', functi
 			skip : skip,
 			
 		};
-		var res = $http.post('/9lakha/design/search', searchObj);
+		var res = $http.post('/jewelhaat/design/search', searchObj);
 		res.success(function(data, status, headers, config) {
 			for (var int = 0; int < data.length; int++) {
 				$scope.designs.push(data[int]);
@@ -356,7 +356,7 @@ app.controller('CustomDesignController', ['$http','$scope', 'fileUpload', functi
 			skip : skip,
 			after : $scope.after
 		};
-		var res = $http.post('/9lakha/design/search', searchObj);
+		var res = $http.post('/jewelhaat/design/search', searchObj);
 		res.success(function(data, status, headers, config) {
 			for (var int = 0; int < data.length; int++) {
 				$scope.designs.push(data[int]);

@@ -38,7 +38,11 @@
 	<context:component-scan base-package="blog.db.repository" />
 	<context:component-scan base-package="blog.db.service" />
 	<context:component-scan base-package="blog.model" />
-	<context:component-scan base-package="blog.platform.authentication" />
+	<context:component-scan base-package="com.bimalsahay.controller" />
+	<context:component-scan base-package="com.bimalsahay.repository" />
+	<context:component-scan base-package="com.bimalsahay.service" />
+	<context:component-scan base-package="com.bimalsahay.model" />
+	<context:component-scan base-package="com.bimalsahay.platform.authentication" />
 	
 	<mvc:resources mapping="/resources/**" location="/resources/"/>
 	

@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.bimalsahay.model.AccountUser;
+import com.bimalsahay.service.UserService;
+
 import blog.db.service.ProductService;
-import blog.db.service.UserService;
-import blog.model.AccountUser;
 import blog.model.Product;
 
 @Controller
