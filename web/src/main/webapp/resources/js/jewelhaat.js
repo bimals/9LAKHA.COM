@@ -1,4 +1,4 @@
-var app = angular.module("bs", ['ngRoute', 'infinite-scroll']);
+var app = angular.module("jewelhaat", ['ngRoute', 'infinite-scroll']);
 
 app.controller("RegistrationController", [ '$scope', '$http',
 		function($scope, $http) {

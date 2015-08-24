@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="bs">
+<html ng-app="jewelhaat">
 <head>
     <!-- Meta-Information -->
     <title>Online Jewelry MarketPlace</title>
@@ -18,7 +18,7 @@
 	<script src="/jewelhaat/resources/js/bootstrap.js"></script>
 	<script src="/jewelhaat/resources/js/angular.js"></script>
 	<script src="/jewelhaat/resources/js/angular-route.js"></script>
-	<script src="/jewelhaat/resources/js/bs.js"></script>
+	<script src="/jewelhaat/resources/js/jewelhaat.js"></script>
 	<script src="/jewelhaat/resources/js/ng-infinite-scroll.js"></script>
 </head>
 <body>
