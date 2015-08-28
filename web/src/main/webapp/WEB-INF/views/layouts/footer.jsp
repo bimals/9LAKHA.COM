@@ -1,1 +1,1 @@
-<div ng-include='"resources/templates/footer.html"'></div>
+<div ng-include='"/jewelhaat/resources/templates/footer.html"'></div>

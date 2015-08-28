@@ -11,7 +11,7 @@
 	</definition>
 	
 	<definition name="home" extends="shell"><put-attribute name="main" value="/WEB-INF/views/home.jsp"/></definition>
-	<definition name="login" template="/WEB-INF/views/auth/login.jsp"/>
+	<definition name="login" extends="shell"><put-attribute name="main" value="/WEB-INF/views/login.jsp"/></definition>
 	<definition name="welcome" extends="shell"><put-attribute name="main" value="/WEB-INF/views/auth/welcome.jsp"/></definition>
 	<definition name="register" extends="shell"><put-attribute name="main" value="/WEB-INF/views/auth/register.jsp"/></definition>
 

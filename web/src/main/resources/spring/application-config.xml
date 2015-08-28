@@ -27,7 +27,7 @@
 	    <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
 	 
-	<bean id="personDAO" class="blog.db.service.PersonDAOImpl">
+	<bean id="personDAO" class="com.jewelhaat.db.service.PersonDAOImpl">
 	    <property name="mongoOps" ref="mongoTemplate"/>
 	</bean>    
 </beans>

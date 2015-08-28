@@ -1,4 +1,4 @@
-<div ng-controller="HomeController" ng-init="search(3);isLoggedIn();">
+<div ng-controller="HomeController" ng-init="search(3);">
 <div class="container" style="margin-top:20px">
 
     <div class="row well">
@@ -24,11 +24,6 @@
 
     <div class="container">
         <div class="row" ng-repeat="product in products" ng-if="$index % 3 == 0" class="row" infinite-scroll="searchMore(3)" infinite-scroll-disabled="busy" infinite-scroll-distance="3">
-<!--             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="#/jwel/details">
-                    <img class="img-responsive img-home-portfolio" src="/jewelhaat/product/image/{{product.id + '-' + product.productUUID}}">
-                </a>
-            </div> -->
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <a href="#/jwel/details">
                     <img class="img-responsive img-home-portfolio" src="/jewelhaat/product/image/{{products[$index].id + '-' + products[$index].productUUID}}">

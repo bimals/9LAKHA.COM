@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HomeController" ng-init="isLoggedIn();">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -24,7 +24,7 @@
                 </li>
                 <li><a href="#/contact">Contact</a>
                 </li>
-                <li><a href="#/selljwel" ng-show="loggedIn">Add Product</a>
+                <li><a href="#/drafts" ng-show="loggedIn">Add Product</a>
                 </li>
                 <li class="dropdown" ng-show="loggedIn">
                     <a class="dropdown-toggle" data-toggle="dropdown">Custom Orders <b class="caret"></b></a>
@@ -37,14 +37,15 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="#/login" ng-show="!loggedIn">Login</a>
+                <li><a href="/jewelhaat/login/#register" ng-show="!loggedIn">Register</a></li>
+                <li><a href="/jewelhaat/login/#login" ng-show="!loggedIn">Login</a>
                 </li>
                 <li class="dropdown" ng-show="loggedIn">
                     <a class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#/blog">My Orders</a>
                         </li>
-                        <li><a href="/jewelhaat/j_spring_security_check">Log Out</a>
+                        <li><a href="/jewelhaat/j_spring_security_check" ng-click="fbLogout()">Log Out</a>
                         </li>
                     </ul>
                 </li>          

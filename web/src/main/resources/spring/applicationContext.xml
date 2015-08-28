@@ -31,18 +31,14 @@
                         http://www.springframework.org/schema/mvc 
                         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
                         
-	<import resource="application-config.xml" />                         
+	<import resource="application-config.xml" /> 
+	<import resource="application-platform.xml" /> 
+                      
 	
-	<context:component-scan base-package="blog.controller" />
-	<context:component-scan base-package="blog.db" />
-	<context:component-scan base-package="blog.db.repository" />
-	<context:component-scan base-package="blog.db.service" />
-	<context:component-scan base-package="blog.model" />
-	<context:component-scan base-package="com.bimalsahay.controller" />
-	<context:component-scan base-package="com.bimalsahay.repository" />
-	<context:component-scan base-package="com.bimalsahay.service" />
-	<context:component-scan base-package="com.bimalsahay.model" />
-	<context:component-scan base-package="com.bimalsahay.platform.authentication" />
+	<context:component-scan base-package="com.jewelhaat.controller" />
+	<context:component-scan base-package="com.jewelhaat.db.repository" />
+	<context:component-scan base-package="com.jewelhaat.db.service" />
+	<context:component-scan base-package="com.jewelhaat.model" />
 	
 	<mvc:resources mapping="/resources/**" location="/resources/"/>
 	

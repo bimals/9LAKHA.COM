@@ -1,103 +1,23 @@
-<div class="container">
-
-    <div class="row">
-
-        <div class="col-lg-12">
-            <h1 class="page-header">Login/Register
-                <small>Welcome to Online Jewelry Marketplace</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#/">Home</a></li>
-                <li class="active">Login or Register</li>
-            </ol>
+    <div class="container">
+	<div class="card card-container">
+		<fb:login-button autologoutlink="true" scope="public_profile,email" ng-controller="HomeController" onlogin="checkLoginState();">
+		</fb:login-button>
+		<!-- <script type="in/Login"></script> -->
+		<img id="profile-img" class="profile-img-card" src="https://lh5.googleusercontent.com/-00d7QT6jugU/AAAAAAAAAAI/AAAAAAAAJhY/lVMZKufA9tg/s96-c/photo.jpg" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin" action="/bimalsahay/j_spring_security_check" method='POST'>				
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" name="j_username" id="j_username" class="form-control" placeholder="Email address" required autofocus>
+                <input type="password" name="j_password" id="j_password" class="form-control" placeholder="Password" required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me" name="_spring_security_remember_me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+            </form><!-- /form -->
+            <a href="#" class="forgot-password">
+                Forgot the password?
+            </a>
         </div>
     </div>
-</div>	
-
-
-<!-- Page Content -->
-<div class="container">
-    <div class="row">
-
-        <div class="col-sm-8">
-            <h3>New User!!! Register Now!!</h3>
-	    <form class="form-horizontal" ng-controller="RegistrationController" ng-submit="registerUser()">
-	        <div class="form-group">
-	            <label for="inputEmail" class="control-label col-xs-2">Email</label>
-	            <div class="col-xs-10">
-	                <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model="inputEmail">
-	            </div>
-	        </div>
-	        <div class="form-group">
-	            <label for="inputPassword" class="control-label col-xs-2">Password</label>
-	            <div class="col-xs-10">
-	                <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="password">
-	            </div>
-	        </div>	        
-	        <div class="form-group">
-	            <label for="firstName" class="control-label col-xs-2">First Name</label>
-	            <div class="col-xs-10">
-	                <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="firstName">
-	            </div>
-	        </div>	      
-	        <div class="form-group">
-	            <label for="lastName" class="control-label col-xs-2">Last Name</label>
-	            <div class="col-xs-10">
-	                <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="lastName">
-	            </div>
-	        </div>	 	          
-	        <div class="form-group">
-	            <div class="col-xs-offset-2 col-xs-10">
-	                <div class="checkbox">
-	                    <label><input type="checkbox"> Terms and Conditions</label>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="form-group">
-	            <div class="col-xs-offset-2 col-xs-10">
-	                <button type="submit" class="btn btn-primary">Register</button>
-	            </div>
-	        </div>
-	    </form>
-        </div>
-
-        <div class="col-sm-4">
-        <h3>Welcome Back! Login.</h3>
-	    <form class="form-horizontal" ng-controller="loginController" action="/jewelhaat/j_spring_security_check" method='POST'>
-			<div class="control-group">
-						<label for="j_username" class="control-label">User Email</label>
-							<div class="controls">
-								<input type="text" name="j_username" id="j_username" value="" class="input-xlarge" size="30" onkeypress="resetErrorMsg(this)" />
-								<!-- <div class="error help-inline" id="j_username_error"></div> -->
-								<div id="j_username_valid" style="display:none;"> 
-								</div>
-							</div>
-					</div>
-					
-					<div class="control-group">
-						<label for="j_password" class="control-label">User Password</label>
-							<div class="controls">
-								<input type="password" name="j_password" id="j_password" value="" class="input-xlarge" size="30" onkeypress="resetErrorMsg(this)">
-								<!-- <div class="error help-inline" id="j_password_error" name="j_password_error"></div> -->
-							</div>
-					</div>
-					
-					<div class="control-group">
-						<div class="controls">
-                        <div class="control-group">
-                            <label class="checkbox inline"> 
-                                <input type="checkbox" name="_spring_security_remember_me"> <span>
-                                Remember Me
-                            </label>
-						</div>
-                        <input type="submit"  id="submit" value="Login" class="btn btn-primary btn-large margin10-t">                        
-						</div>
-					</div>
-					
-	    </form>
-        </div>
-
-    </div>
-    <!-- /.row -->
-
-</div><!-- /.container -->
