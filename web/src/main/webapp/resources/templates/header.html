@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HomeController" ng-init="isLoggedIn();">
+<nav class="navbar navbar-default navbar-fixed-top" styll role="navigation" ng-controller="HomeController" ng-init="isLoggedIn();">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
-            <a class="navbar-brand" href="#/">JEWELHAAT.com</a>
+            <a class="navbar-brand" href="#/">JEWELHAAT.COM</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -22,6 +22,8 @@
                 </li>
                 <li><a href="#/faq">FAQ</a>
                 </li>
+                <li><a href="#/faq">Blogs</a>
+                </li>                
                 <li><a href="#/contact">Contact</a>
                 </li>
                 <li><a href="#/drafts" ng-show="loggedIn">Add Product</a>
@@ -45,12 +47,48 @@
                     <ul class="dropdown-menu">
                         <li><a href="#/blog">My Orders</a>
                         </li>
+                        <li><a href="#/me">My Products</a>
+                        </li>
                         <li><a href="/jewelhaat/j_spring_security_check" ng-click="fbLogout()">Log Out</a>
                         </li>
                     </ul>
                 </li>          
             </ul>
         </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+			<div class="col-lg-6">
+				<form class="form-horizontal">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Search for..." ng-model="searchText"> <span
+							class="input-group-btn">
+							<button class="btn btn-default" ng-click="search(3)">Go!</button>
+						</span>
+					</div>
+				</form>
+			</div>
+			<!-- /.col-lg-6 -->
+			<div class="col-lg-4 col-md-4">
+				<a class="btn btn-lg btn-primary pull-right" ng-show="!loggedIn"
+					href="#/pricing">Start Selling Now!</a>
+			</div>
+			        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+<!--                 <li><a href="#/services" ng-show="loggedIn">Services</a>
+                </li>
+                <li><a href="#/customdesign" ng-show="loggedIn">Custom Designs</a>
+                </li>
+                <li><a href="#/about" ng-show="loggedIn">About</a>
+                </li> -->
+                <li><a href="#/faq" ng-show="loggedIn">My Deliverables</a>
+                </li>
+                <li><a href="#/contact" ng-show="loggedIn">Wish List</a>
+                </li>
+                <li><a href="#/drafts" ng-show="loggedIn">Cart</a>
+                </li>      
+            </ul>
+        </div>
+		</div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->

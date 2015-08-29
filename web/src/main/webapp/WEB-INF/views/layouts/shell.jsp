@@ -49,12 +49,16 @@
 <script src="/jewelhaat/resources/js/jquery.fileupload-angular.js"></script>
 <script src="/jewelhaat/resources/js/app.js"></script> -->
 <script src="/jewelhaat/resources/js/jewelhaat.js"></script>
+<script src="/jewelhaat/resources/js/jewelhaat-route.js"></script>
+<script src="/jewelhaat/resources/js/jewelhaat-product.js"></script>
+<script src="/jewelhaat/resources/js/jewelhaat-directive.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="masthead" />
 	<tiles:insertAttribute name="topnav" />	
 	<tiles:insertAttribute name="menu" />		
  	<tiles:insertAttribute name="main" />
+ 	<tiles:insertAttribute name="bottomnav" />	
 	<tiles:insertAttribute name="footer" />
 </body>
 </html>

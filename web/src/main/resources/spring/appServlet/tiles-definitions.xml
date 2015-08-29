@@ -7,10 +7,12 @@
 		<put-attribute name="topnav" value="/WEB-INF/views/layouts/topnav.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/layouts/menu.jsp" />
 		<put-attribute name="main" value="" />
+		<put-attribute name="bottomnav" value="/WEB-INF/views/bottomnav.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/layouts/footer.jsp" />
 	</definition>
 	
 	<definition name="home" extends="shell"><put-attribute name="main" value="/WEB-INF/views/home.jsp"/></definition>
+	<definition name="product" extends="shell"><put-attribute name="main" value="/WEB-INF/views/product.jsp"/></definition>
 	<definition name="login" extends="shell"><put-attribute name="main" value="/WEB-INF/views/login.jsp"/></definition>
 	<definition name="welcome" extends="shell"><put-attribute name="main" value="/WEB-INF/views/auth/welcome.jsp"/></definition>
 	<definition name="register" extends="shell"><put-attribute name="main" value="/WEB-INF/views/auth/register.jsp"/></definition>

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +37,7 @@ public class ProductController {
 	@RequestMapping(value="/product", method = RequestMethod.GET)
 	public String writeProduct() {
 		
-		return "home";
+		return "product";
 	}
 	
 
@@ -67,6 +66,17 @@ public class ProductController {
 		AccountUser user = userService.getLoggedInUser();
 		if(user != null) {
 			return productService.findAllProductsByStatus(ProductStatus.PUBLISHED, user.getId());
+		}
+
+		return null;
+	}
+	
+	@RequestMapping(value="/myproduct", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Product> myProducts() throws Exception {
+		AccountUser user = userService.getLoggedInUser();
+		if(user != null) {
+			return productService.findAllProductsByStatusAndUser(ProductStatus.PUBLISHED, user.getId());
 		}
 
 		return null;

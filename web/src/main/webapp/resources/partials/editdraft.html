@@ -1,14 +1,14 @@
-<div class="container" ng-controller="productController" nv-file-drop="" uploader="uploader" ng-init = "editDraft()">
+<div class="container" ng-controller="productController" nv-file-drop="" uploader="uploader" ng-init = "editDraft();">
 
 	<div class="row">
 
 		<div class="col-lg-12">
 			<h1 class="page-header">
-				Add New Blog <small>Express Yourself</small>
+				Add New Product <small>Express Yourself</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#/">Home</a></li>
-				<li class="active">New Blog</li>
+				<li class="active">New Product</li>
 			</ol>
 		</div>
 	</div>
@@ -91,27 +91,27 @@
 				<input type="hidden" name="id" ng-model="id" />
 				<div class="form-group">
 					<label class="control-label">Title</label> <input type="text"
-						class="form-control" name="title" ng-model="blogTitle" />
+						class="form-control" name="title" ng-model="productTitle" />
 				</div>
 
 				<div class="form-group">
 					<div class="row">
 						<div class="col-xs-6">
 							<label class="control-label">Web Link</label> <input type="text"
-								class="form-control" name="website" ng-model="blogWebsite" />
+								class="form-control" name="website" ng-model="productWebsite" />
 						</div>
 
 						<div class="col-xs-6">
 							<label class="control-label">Youtube link</label> <input
 								type="text" class="form-control" name="trailer"
-								ng-model="blogYouTube" />
+								ng-model="productYouTube" />
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">Write More</label>
 					<textarea class="form-control" name="review" rows="8"
-						ng-model="blogText"></textarea>
+						ng-model="productText"></textarea>
 				</div>
 				<div class="form-group">
 					<div id="mode-group" class="btn-group" data-toggle="buttons">
@@ -126,12 +126,12 @@
 				</div>
 				<!-- <button class="btn btn-default btn-primary" ng-click="uploadFile()">Publish</button> -->
 				<div class="form-group">
-					<!--     	<label class="control-label">Image That Defines Your Blog</label>
+					<!--     	<label class="control-label">Image That Defines Your Product</label>
 		<span class="btn btn-default btn-file"><input type="file" file-model="myFile"/>
 		</span> -->
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<strong>Image That Defines Your Blog</strong> <small>Upload
+							<strong>Image That Defines Your Product</strong> <small>Upload
 								Image Files</small>
 						</div>
 						<div class="panel-body">
@@ -240,7 +240,7 @@
 				<div class="form-group">
 					<label class="control-label">Write More</label>
 					<textarea class="form-control" name="review" rows="8"
-						ng-model="blogMoreText"></textarea>
+						ng-model="productMoreText"></textarea>
 				</div>
 				<div id="mode-group" class="btn-group" data-toggle="buttons">
 					<label class="btn btn-default"> <input type="radio"
@@ -248,10 +248,10 @@
 					</label><!--  <label class="btn btn-default"> <input type="radio"
 						name="mode" id="option2"> Save Draft
 					</label> -->
-					<button class="btn btn-default btn-primary" ng-click="publishBlog()">Preview</button>
-					<button class="btn btn-default btn-primary" ng-click="addDraftBlog()">Save Draft</button>
+					<button class="btn btn-default btn-primary" ng-click="publishProduct()">Preview</button>
+					<button class="btn btn-default btn-primary" ng-click="addDraftProduct()">Save Draft</button>
 				</div>
-				<button class="btn btn-default btn-primary" ng-click="publishBlog()">Publish</button>
+				<button class="btn btn-default btn-primary" ng-click="publishProduct()">Publish</button>
 			</form>
 		</div>
 	</div>

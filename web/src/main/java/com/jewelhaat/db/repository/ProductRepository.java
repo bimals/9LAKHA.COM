@@ -18,6 +18,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.bimalsahay.model.SearchCriteria;
 import com.jewelhaat.model.Product;
 import com.jewelhaat.model.ProductStatus;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
@@ -57,7 +58,7 @@ public class ProductRepository implements IProductRepository{
 	}
 
 	public void addProductImage(Product product, CommonsMultipartFile fileToUpload) throws IOException {
-        String fileName = product.getId() + "-" + product.getProductUUID();
+/*        String fileName = product.getId() + "-" + product.getProductUUID();
         DB db = mongoOps.getCollection("FILES").getDB();
 		GridFS gfsPhoto = new GridFS(db, "FILES");
 		GridFSInputFile gfsFile = gfsPhoto.createFile(fileToUpload.getInputStream());
@@ -67,6 +68,28 @@ public class ProductRepository implements IProductRepository{
 		gfsFile.save();
 		
 		GridFSDBFile imageForOutput = gfsPhoto.findOne(fileName);
+		
+		product.setImageId(imageForOutput.getId().toString());
+		this.update(product);*/
+		
+        DB db = mongoOps.getCollection("FILES").getDB();
+		GridFS gfsPhoto = new GridFS(db, "FILES");
+		GridFSInputFile gfsFile = gfsPhoto.createFile(fileToUpload.getInputStream());
+		gfsFile.setFilename(product.getId());
+		gfsFile.setContentType(fileToUpload.getContentType());
+		
+		BasicDBObject fileMetadata = new BasicDBObject();
+		fileMetadata.put("fileName", fileToUpload.getName());
+		fileMetadata.put("originalFileName", fileToUpload.getOriginalFilename());
+		fileMetadata.put("contentType", fileToUpload.getContentType());
+		fileMetadata.put("fileSize", fileToUpload.getSize());
+		fileMetadata.put("storageDescription", fileToUpload.getStorageDescription());
+		fileMetadata.put("userId", product.getUserId());
+		
+		gfsFile.setMetaData(fileMetadata);
+		gfsFile.save();
+		
+		GridFSDBFile imageForOutput = gfsPhoto.findOne(product.getId());
 		
 		product.setImageId(imageForOutput.getId().toString());
 		this.update(product);
@@ -84,13 +107,13 @@ public class ProductRepository implements IProductRepository{
 		}
 		
 		Pattern regex = Pattern.compile(".*"+searchText+".*");
-		Criteria criteria = Criteria.where("productName").regex(regex).orOperator(Criteria.where("productDescription").regex(regex));
+		Criteria criteria = Criteria.where("productTitle").regex(regex).orOperator(Criteria.where("productDescription").regex(regex));
 		
 		if(searchCriteria.getAfter() != null) {
 			criteria = Criteria.where("_id").gt(searchCriteria.getAfter()).andOperator(criteria);
 		}
 
-		Query query = new Query().limit(20).with(new Sort(Direction.DESC, "_id"));
+		Query query = new Query(criteria).limit(20).with(new Sort(Direction.DESC, "_id"));
 		return mongoOps.find(query, Product.class, PRODUCT_COLLECTION);
 	}
 

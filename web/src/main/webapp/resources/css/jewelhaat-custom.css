@@ -26,7 +26,8 @@ body {
 /* Home Page Carousel */
 
 header.carousel {
-    height: 50%;
+	margin-top: 40px;
+    height: 20%;
 }
 
 header.carousel .item,
@@ -259,3 +260,46 @@ footer {
   border-color: #222;
 }
 
+.margin {
+	margin-top: 20px;
+}
+
+.img-home-portfolio,
+.img-customer,
+.portfolio-item {
+    width: 200px;
+    height: 175px;	
+    margin-bottom: 30px;
+}
+
+.strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; 
+}
+
+.strike > span {
+    position: relative;
+    display: inline-block;
+}
+
+.strike > span:before,
+.strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: red;
+}
+
+.strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+}

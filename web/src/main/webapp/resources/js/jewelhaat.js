@@ -192,81 +192,7 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', 'Facebook', 
 	};	
 } ]);
 
-app.directive("oneBlog", function() {
-	return {
-		restrict : 'E',
-		templateUrl : '/jewelhaat/account/user/login'
-	}
-});
 
-app.config([ '$routeProvider', function($routeProvider) {
-	$routeProvider
-	// Home
-	.when("/", {
-		templateUrl : "/jewelhaat/resources/partials/home.html",
-		controller : "PageCtrl"
-	})
-	// Pages
-	.when("/about", {
-		templateUrl : "/jewelhaat/resources/partials/about.html",
-		controller : "PageCtrl"
-	}).when("/faq", {
-		templateUrl : "/jewelhaat/resources/partials/faq.html",
-		controller : "PageCtrl"
-	}).when("/pricing", {
-		templateUrl : "/jewelhaat/resources/partials/pricing.html",
-		controller : "PageCtrl"
-	}).when("/services", {
-		templateUrl : "/jewelhaat/resources/partials/services.html",
-		controller : "PageCtrl"
-	}).when("/contact", {
-		templateUrl : "/jewelhaat/resources/partials/contact.html",
-		controller : "PageCtrl"
-	}).when("/registration", {
-		templateUrl : "/jewelhaat/resources/partials/registration.html",
-		controller : "PageCtrl"
-	}).when("/login", {
-		templateUrl : "/jewelhaat/resources/partials/login.html",
-		controller : "PageCtrl"
-	}).when("/customdesign", {
-		templateUrl : "/jewelhaat/resources/partials/customdesign.html",
-		controller : "PageCtrl"
-	}).when("/new", {
-		templateUrl : "/jewelhaat/resources/partials/selljwel.html",
-		controller : "PageCtrl"
-	}).when("/newdesign", {
-		templateUrl : "/jewelhaat/resources/partials/addcustomdesign.html",
-		controller : "PageCtrl"
-	}).when("/register", {
-		templateUrl : "/jewelhaat/resources/partials/registration.html",
-		controller : "PageCtrl"
-	}).when("/drafts", {
-		templateUrl : "/jewelhaat/resources/partials/drafts.html",
-		controller : "PageCtrl"
-	}).when("/edit", {
-		templateUrl : "/jewelhaat/resources/partials/editdraft.html",
-		controller : "PageCtrl"
-	})
-	
-	
-	
-	// Blog
-	.when("/blog", {
-		templateUrl : "/jewelhaat/resources/partials/blog.html",
-		controller : "BlogCtrl"
-	}).when("/blog/post", {
-		templateUrl : "/jewelhaat/resources/partials/blog_item.html",
-		controller : "BlogCtrl"
-	}).when("/jwel/details", {
-		templateUrl : "/jewelhaat/resources/partials/jweldetails.html",
-		controller : "BlogCtrl"
-	})
-	// else 404
-	.otherwise("/404", {
-		templateUrl : "/jewelhaat/resources/partials/404.html",
-		controller : "PageCtrl"
-	});
-} ]);
 
 /**
  * Controls the Blog
@@ -282,8 +208,8 @@ app.controller('PageCtrl', function(/* $scope, $location, $http */) {
 	console.log("Page Controller reporting for duty.");
 
 	// Activates the Carousel
-	$('.carousel').carousel({
-		interval : 5000
+	$('.interval').carousel({
+		interval : 10000
 	});
 
 	// Activates Tooltips for Social Links
@@ -448,10 +374,10 @@ app.controller('CustomDesignController', ['$http','$scope', 'fileUpload', functi
 	};	    
 }]);
 
-
-$('.carousel').carousel({
-    interval: 5000 //changes the speed
-})
+/*
+$('.interval').carousel({
+    interval: 10000 //changes the speed
+})*/
 
 function onSignIn(googleUser) {
 	  var profile = googleUser.getBasicProfile();
@@ -538,216 +464,30 @@ app.directive('ngThumb', ['$window', function($window) {
     }]);
 
 
-app.service('productService', ['$http', function($http){
-	this.getAllPublishedProducts = function() {
-		var res = $http.post('/jewelhaat/product');
-		res.success(function(data, status, headers, config) {
-				
-		});
-		res.error(function(data, status, headers, config) {
-			console.log("product service 1");
-			window.location = '/jewelhaat/login/#/login';
-		});
-		
-		return res;
-	};
-	
-	this.getFullProduct = function(id) {
-		var res = $http.get('/jewelhaat/product/' + id);
-		
-		res.success(function(data, status, headers, config) {
-			
-		});
-		res.error(function(data, status, headers, config) {
-			console.log("product service 2");
-			window.location = '/jewelhaat/login/#/login';
-		});
-		
-		
-		return res;
-	};
-}]);
-
-app.controller('productController', ['$http', '$scope', 'FileUploader', '$rootScope', '$routeParams', 'productService', function($http, $scope, FileUploader, $rootScope, $routeParams, productService) {
-	
-	$rootScope.useNew = false;
-	
-	$scope.homePageProducts = function() {
-		productService.getAllPublishedProducts().then(function(response) {
-			$scope.products = response.data;
-		});
-		window.location = '#/all';
-	};
-	
-	$scope.readProduct = function(data) {
-		window.location = '#/read';
-		$rootScope.id = data.id;
-		
-	};
-	
-	$scope.fullProduct = function() {
-		productService.getFullProduct($rootScope.id).then(function(response) {
-			$scope.product = response.data;
-		});
-	};
-	
-	$scope.addComment = function(id) {
-		var comment = $scope.comment;
-		var res = $http.post('/jewelhaat/product/' + id + "/comment", comment);
-		res.success(function(data, status, headers, config) {
-			$scope.product.comments = data.comment;
-		});
-		res.error(function(data, status, headers, config) {
-			alert("failure message: " + JSON.stringify({
-				data : data
-			}));
-		});
-	}
- 	
-	$scope.editDraft = function() {
-		productService.getFullProduct($rootScope.currentDraft).then(function(response) {
-			$scope.id = response.data.id;
-			$scope.productTitle = response.data.productTitle;
-			$scope.productWebsite = response.data.productWebsite;
-			$scope.productYouTube = response.data.productYouTube;
-			$scope.productText = response.data.productText;
-			$scope.productMoreText = response.data.productMoreText;
-			$scope.creationTimeStamp = response.data.creationTimeStamp;
-			$scope.userFullName = response.data.userFullName;
-		});
-	};
-		
-	$scope.useThisTemplate = function(draft) {
-		$rootScope.currentDraft = draft.id;
-		window.location = "#/edit";
-	};
-	
-	$scope.addNew = function(draft) {
-		$rootScope.useNew = true;
-		window.location = "#/new";
-	};
-	
-	$scope.checkForDraftProducts = function() {
-			var res = $http.post('/jewelhaat/product/draft');
-			res.success(function(data, status, headers, config) {
-				if(data != null && data.length != 0) {
-					$scope.drafts = data;
-					window.location = '#/drafts';
-				}
-				else {
-					$scope.addDraftProduct();
-				}
-			});
-			res.error(function(data, status, headers, config) {
-				console.log("Product Controller 1");
-				window.location = '/jewelhaat/login/#/login';
-			});
-	};
-	
-	$scope.addDraftProduct = function() {
-		var productObj = {
-				id : $scope.id,
-				productTitle : $scope.productTitle,
-				productWebsite : $scope.productWebsite,
-				productYouTube : $scope.productYouTube,
-				productText : $scope.productText,
-				productMoreText : $scope.productMoreText
-			};
-			var res = $http.post('/jewelhaat/user/draft', productObj);
-			res.success(function(data, status, headers, config) {
-				$scope.id = data.id;
-				$scope.productTitle = data.productTitle;
-				$scope.productWebsite = data.productWebsite;
-				$scope.productYouTube = data.productYouTube;
-				$scope.productText = data.productText;
-				$scope.productMoreText = data.productMoreText;
-				window.location = '#/new';
-			});
-			res.error(function(data, status, headers, config) {
-				alert("failure message: " + JSON.stringify({
-					data : data
-				}));
-			});
-	};
-	
-	
-	$scope.publishProduct = function() {
-		var productObj = {
-				id : $scope.id,
-				productTitle : $scope.productTitle,
-				productWebsite : $scope.productWebsite,
-				productYouTube : $scope.productYouTube,
-				productText : $scope.productText,
-				productMoreText : $scope.productMoreText
-			};
-			var res = $http.post('/jewelhaat/user/createproduct', productObj);
-			res.success(function(data, status, headers, config) {
-				$rootScope.useNew = false;
-				$rootScope.currentDraft = null;
-				window.location = '#/jewelhaat/post';
-			});
-			res.error(function(data, status, headers, config) {
-				alert("failure message: " + JSON.stringify({
-					data : data
-				}));
-			});
-	};
-	
-	
-	
-    var uploader = $scope.uploader = new FileUploader({
-        url: '/jewelhaat/user/'+$rootScope.currentDraft+'/image'
-    });
-
-    // FILTERS
-
-    uploader.filters.push({
-        name: 'imageFilter',
-        fn: function(item /*{File|FileLikeObject}*/, options) {
-            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-        }
-    });
-
-    // CALLBACKS
-
-    uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        console.info('onWhenAddingFileFailed', item, filter, options);
-    };
-    uploader.onAfterAddingFile = function(fileItem) {
-        console.info('onAfterAddingFile', fileItem);
-    };
-    uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
-    };
-    uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
-    };
-    uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
-    };
-    uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
-    };
-    uploader.onSuccessItem = function(fileItem, response, status, headers) {
-        console.info('onSuccessItem', fileItem, response, status, headers);
-    };
-    uploader.onErrorItem = function(fileItem, response, status, headers) {
-        console.info('onErrorItem', fileItem, response, status, headers);
-    };
-    uploader.onCancelItem = function(fileItem, response, status, headers) {
-        console.info('onCancelItem', fileItem, response, status, headers);
-    };
-    uploader.onCompleteItem = function(fileItem, response, status, headers) {
-        console.info('onCompleteItem', fileItem, response, status, headers);
-    };
-    uploader.onCompleteAll = function() {
-        console.info('onCompleteAll');
-    };
-
-    console.info('uploader', uploader);
-}]);
 
 function checkLoginState() {
 	window.location = "/jewelhaat";
 }
+
+app.service('userService', ['$http', function($http){
+	this.getAllProducts = function() {
+		var res = $http.post('/jewelhaat/myproduct');
+		res.success(function(data, status, headers, config) {
+				
+		});
+		res.error(function(data, status, headers, config) {
+			console.log("blog service 1");
+			window.location = '/jewelhaat/login/#/login';
+		});
+		
+		return res;
+	};
+}]);
+
+app.controller('userController', ['$scope', 'userService', function($scope, userService) {
+	$scope.myProducts = function() {
+		userService.getAllProducts().then(function(response) {
+			$scope.products = response.data;
+		});
+	}
+}]);
