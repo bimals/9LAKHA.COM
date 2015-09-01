@@ -3,33 +3,33 @@
 	<span>New Arrivals</span>
 </div>
 <div id="newones" class="row carousel slide margin"
-	data-ride="carousel" data-interval="false">
+	data-ride="carousel" data-interval="false" ng-controller="newOnesController" ng-init="getNewProducts(0);">
 	<div class="carousel-inner">
-		<div class="item active">
-			<div class="row">
+		<div class="item active" ng-repeat="product in products" ng-if="$index % 6 == 0" >
+			<div class="row" >
 				<div class="col-xs-2">
-					<a href="#/"><img src="http://placehold.it/500x500" alt="Image"
-						class="img-responsive"></a>
+					<a href="#/"><img ng-src="/jewelhaat/product/image/{{products[$index].id}}" alt="Image"
+						class="img-responsive img-home-portfolio"></a>
 				</div>
 				<div class="col-xs-2">
-					<a href="#/"><img src="http://placehold.it/500x500" alt="Image"
-						class="img-responsive"></a>
+					<a href="#/"><img ng-src="/jewelhaat/product/image/{{products[$index + 1].id}}" alt="Image"
+						class="img-responsive img-home-portfolio"></a>
 				</div>
 				<div class="col-xs-2">
-					<a href="#/"><img src="http://placehold.it/500x500" alt="Image"
-						class="img-responsive"></a>
+					<a href="#/"><img ng-src="/jewelhaat/product/image/{{products[$index + 2].id}}" alt="Image"
+						class="img-responsive img-home-portfolio"></a>
 				</div>
 				<div class="col-xs-2">
-					<a href="#/"><img src="http://placehold.it/500x500" alt="Image"
-						class="img-responsive"></a>
+					<a href="#/"><img ng-src="/jewelhaat/product/image/{{products[$index + 3].id}}" alt="Image"
+						class="img-responsive img-home-portfolio"></a>
 				</div>
 				<div class="col-xs-2">
-					<a href="#/"><img src="http://placehold.it/250x250" alt="Image"
-						class="img-responsive"></a>
+					<a href="#/"><img ng-src="/jewelhaat/product/image/{{products[$index + 4].id}}" alt="Image"
+						class="img-responsive img-home-portfolio"></a>
 				</div>
 				<div class="col-xs-2">
-					<a href="#/"><img src="http://placehold.it/250x250" alt="Image"
-						class="img-responsive"></a>
+					<a href="#/"><img ng-src="/jewelhaat/product/image/{{products[$index + 5].id}}" alt="Image"
+						class="img-responsive img-home-portfolio"></a>
 				</div>
 			</div>
 		</div>
@@ -90,7 +90,7 @@
 			</div>
 		</div>
 	</div>
-	<a class="left carousel-control" href="#newones" data-slide="prev"><span
+	<a class="left carousel-control" href="#newones" ng-click="getNewProducts(0)" data-slide="prev"><span
 		class="icon-prev"></span></a> <a class="right carousel-control"
-		href="#newones" data-slide="next"><span class="icon-next"></span></a>
+		href="#newones" ng-click="getNewProducts(0)" data-slide="next"><span class="icon-next"></span></a>
 </div>

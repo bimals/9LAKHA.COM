@@ -29,6 +29,12 @@ public class SearchController {
 	@Autowired ProductService productService;
 	@Autowired DesignService designService;
 	
+	@RequestMapping(value="/s", method = RequestMethod.GET)
+	public String writeProduct() {
+		
+		return "search";
+	}
+	
 	@RequestMapping(value="/product/search", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Product> searchProduct(@RequestBody SearchCriteria searchCriteria) {

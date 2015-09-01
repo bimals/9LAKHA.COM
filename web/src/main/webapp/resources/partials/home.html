@@ -1,4 +1,12 @@
-<div ng-controller="HomeController" ng-init="search(3);">
+<div ng-controller="HomeController">
+	<div class="container margin fill" ng-show="loggedIn">
+		<div class="row">
+			<recomended-jewels></recomended-jewels>
+		</div>
+		<div class="row">
+			<recently-viewed></recently-viewed>
+		</div>		
+	</div>
 	<div class="container margin fill">
 		<div class="row">
 			<div class="col-sm-9">
@@ -16,78 +24,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="container margin fill">
+	<div class="container margin fill" ng-show="loggedIn">
 		<div class="row">
 			<recomended-jewels></recomended-jewels>
 		</div>
 		<div class="row">
 			<recently-viewed></recently-viewed>
 		</div>		
-		
 	</div>
 </div>
-
-<!-- 			<div class="row margin" ng-repeat="product in products"
-				ng-if="$index % 4 == 0" class="row" infinite-scroll="searchMore(3)"
-				infinite-scroll-disabled="busy" infinite-scroll-distance="3">
-				<div class="col-lg-3 col-md-3 col-sm-6">
-					<a href="#/jwel/details"> <img class="img-home-portfolio"
-						src="/jewelhaat/product/image/{{products[$index].id}}">
-						<div class="caption">
-							<div class="row">
-								<div class="col-md-6 col-xs-6">
-									<p>{{products[$index].productName}}</p>
-								</div>
-								<div class="col-md-6 col-xs-6">
-									<p>{{products[$index].productPrice}}</p>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6">
-					<a href="#/jwel/details"> <img class="img-home-portfolio"
-						src="/jewelhaat/product/image/{{products[$index + 1].id}}">
-						<div class="caption">
-							<div class="row">
-								<div class="col-md-6 col-xs-6">
-									<p>{{products[$index + 1].productName}}</p>
-								</div>
-								<div class="col-md-6 col-xs-6">
-									<p>{{products[$index + 1].productPrice}}</p>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6">
-					<a href="#/jwel/details"> <img class="img-home-portfolio"
-						src="/jewelhaat/product/image/{{products[$index + 2].id}}">
-						<div class="caption">
-							<div class="row">
-								<div class="col-md-6 col-xs-6">
-									<p>{{products[$index + 2].productName}}</p>
-								</div>
-								<div class="col-md-6 col-xs-6">
-									<p>{{products[$index + 2].productPrice}}</p>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6">
-					<a href="#/jwel/details"> <img class="img-home-portfolio"
-						src="/jewelhaat/product/image/{{products[$index + 3].id}}">
-						<div class="caption">
-							<div class="row">
-								<div class="col-md-6 col-xs-6">
-									<p>{{products[$index + 3].productName}}</p>
-								</div>
-								<div class="col-md-6 col-xs-6">
-									<p>{{products[$index + 3].productPrice}}</p>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				</div> -->

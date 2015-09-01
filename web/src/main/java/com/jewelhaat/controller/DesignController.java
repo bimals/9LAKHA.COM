@@ -23,10 +23,10 @@ public class DesignController {
 	@Autowired DesignService designService;
 	@Autowired UserService userService;
 	
-	@RequestMapping(value="/design", method = RequestMethod.GET)
+	@RequestMapping(value="/d", method = RequestMethod.GET)
 	public String writeBlog() {
 		
-		return "home";
+		return "design";
 	}
 	
 	@RequestMapping(value="/user/addcustomdesign", method = RequestMethod.POST)

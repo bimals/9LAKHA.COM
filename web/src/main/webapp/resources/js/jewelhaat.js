@@ -2,9 +2,35 @@ var app = angular.module("jewelhaat", ['angularFileUpload','ngRoute', 'infinite-
     FacebookProvider.init('481717542008286');
 });
 
+app.filter('nospace', function () {
+    return function (value) {
+        return (!value) ? '' : value.replace(/ /g, '');
+    };
+});
+
 app.controller("RegistrationController", [ '$scope', '$http',
 		function($scope, $http) {
-
+	
+			$scope.registerCompany = function() {
+				window.location = "#/address";
+			};
+			
+			$scope.captureCreditCard = function() {
+				window.location = "#/cc";
+			};
+			
+			$scope.review = function() {
+				window.location = "#/review";
+			}
+			
+			$scope.invoice = function() {
+				window.location = "#/invoice";
+			};
+			
+			$scope.startSelling = function() {
+				window.location = "/jewelhaat/";
+			};
+			
 			$scope.registerUser = function() {
 
 				var userObj = {
@@ -61,10 +87,6 @@ app.controller("loginController", [ '$scope', '$http', '$rootScope', function($s
 } ]);
 
 app.controller("HomeController", [ '$scope', '$http', '$rootScope', 'Facebook', function($scope, $http, $rootScope, Facebook) {
-	
-	$scope.products = [];
-	$scope.after;
-	$scope.busy = true;
 	
 	$scope.fbLogout = function() {
 		Facebook.logout(function(response) {
@@ -138,7 +160,19 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', 'Facebook', 
 	          }
 	        });
 	    };
-	   
+} ]);
+
+
+app.controller('searchController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+	
+	$scope.products = [];
+	$scope.after;
+	$scope.busy = true;
+	
+	$scope.startSelling = function(){
+		window.location = "/jewelhaat/pricing/#pricing";
+	};
+	
 	$scope.search = function(skip) {
 
 		var searchObj = {
@@ -155,6 +189,8 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', 'Facebook', 
 			$scope.after = $scope.products[$scope.products.length - 1].id;
 			}
 			$scope.busy = false;
+			
+			window.location = "/jewelhaat/s/#/list";
 		});
 		res.error(function(data, status, headers, config) {
 			alert("failure message: " + JSON.stringify({
@@ -190,9 +226,7 @@ app.controller("HomeController", [ '$scope', '$http', '$rootScope', 'Facebook', 
 			}));
 		});
 	};	
-} ]);
-
-
+}]);
 
 /**
  * Controls the Blog
@@ -491,3 +525,4 @@ app.controller('userController', ['$scope', 'userService', function($scope, user
 		});
 	}
 }]);
+

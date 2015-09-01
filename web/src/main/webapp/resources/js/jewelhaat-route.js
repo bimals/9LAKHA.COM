@@ -6,7 +6,7 @@ angular.module('jewelhaat').config([ '$routeProvider', function($routeProvider) 
 		controller : "PageCtrl"
 	})
 	// Pages
-	.when("/about", {
+	.when("/us", {
 		templateUrl : "/jewelhaat/resources/partials/about.html",
 		controller : "PageCtrl"
 	}).when("/faq", {
@@ -27,7 +27,7 @@ angular.module('jewelhaat').config([ '$routeProvider', function($routeProvider) 
 	}).when("/login", {
 		templateUrl : "/jewelhaat/resources/partials/login.html",
 		controller : "PageCtrl"
-	}).when("/customdesign", {
+	}).when("/custom", {
 		templateUrl : "/jewelhaat/resources/partials/customdesign.html",
 		controller : "PageCtrl"
 	}).when("/new", {
@@ -39,7 +39,7 @@ angular.module('jewelhaat').config([ '$routeProvider', function($routeProvider) 
 	}).when("/register", {
 		templateUrl : "/jewelhaat/resources/partials/registration.html",
 		controller : "PageCtrl"
-	}).when("/drafts", {
+	}).when("/add", {
 		templateUrl : "/jewelhaat/resources/partials/drafts.html",
 		controller : "PageCtrl"
 	}).when("/edit", {
@@ -77,7 +77,7 @@ angular.module('jewelhaat').config([ '$routeProvider', function($routeProvider) 
 		controller : "BlogCtrl"
 	}).when("/newones", {
 		templateUrl : "/jewelhaat/resources/partials/home.html",
-		controller : "BlogCtrl"
+		controller : "newOnesController"
 	}).when("/specials", {
 		templateUrl : "/jewelhaat/resources/partials/home.html",
 		controller : "BlogCtrl"
@@ -85,7 +85,41 @@ angular.module('jewelhaat').config([ '$routeProvider', function($routeProvider) 
 		templateUrl : "/jewelhaat/resources/partials/home.html",
 		controller : "BlogCtrl"
 	})
+	.when("/list", {
+		templateUrl : "/jewelhaat/resources/partials/searchhome.html",
+		controller : "BlogCtrl"
+	})
+	.when("/cart", {
+		templateUrl : "/jewelhaat/resources/partials/cart.html",
+		controller : "BlogCtrl"
+	})
+	.when("/checkout", {
+		templateUrl : "/jewelhaat/resources/partials/checkout.html",
+		controller : "BlogCtrl"
+	})
 	
+	.when("/address", {
+		templateUrl : "/jewelhaat/resources/partials/sellerbilling.html",
+		controller : "BlogCtrl"
+	})
+	
+	.when("/setup", {
+		templateUrl : "/jewelhaat/resources/partials/seller.html",
+		controller : "BlogCtrl"
+	})
+	
+	.when("/cc", {
+		templateUrl : "/jewelhaat/resources/partials/sellercc.html",
+		controller : "BlogCtrl"
+	})
+	.when("/review", {
+		templateUrl : "/jewelhaat/resources/partials/sellerreview.html",
+		controller : "BlogCtrl"
+	})
+	.when("/invoice", {
+		templateUrl : "/jewelhaat/resources/partials/sellerinvoice.html",
+		controller : "BlogCtrl"
+	})
 	
 	
 	// Blog
@@ -105,3 +139,35 @@ angular.module('jewelhaat').config([ '$routeProvider', function($routeProvider) 
 		controller : "PageCtrl"
 	});
 } ]);
+
+angular.module('jewelhaat').controller('newOnesController', ['$scope', '$http', function($scope, $http) {
+	
+	$scope.products = [];
+	$scope.after;
+	$scope.busy = true;
+	
+	$scope.getNewProducts = function(skip) {
+
+		var searchObj = {
+			searchText : $scope.searchText,
+			skip : skip,
+			after : $scope.after
+		};
+		var res = $http.post('/jewelhaat/product/search', searchObj);
+		res.success(function(data, status, headers, config) {
+			if (data != null && data.length > 0) {
+				for (var int = 0; int < data.length; int++) {
+					$scope.products.push(data[int]);
+				}
+				$scope.after = $scope.products[$scope.products.length - 1].id;
+			}
+			$scope.busy = false;
+		});
+		res.error(function(data, status, headers, config) {
+			alert("failure message: " + JSON.stringify({
+				data : data
+			}));
+		});
+	};	
+
+}]);

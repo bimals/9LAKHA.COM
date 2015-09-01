@@ -16,9 +16,6 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/jewelhaat/resources/css/bootstrap-theme.css"/>	
 <link rel="stylesheet" type="text/css" media="screen" href="/jewelhaat/resources/css/bootstrap.css"/>	
 <link rel="stylesheet" type="text/css" media="screen" href="/jewelhaat/resources/css/jewelhaat-custom.css" />
-      <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-	  <link rel="stylesheet" href="/jewelhaat/resources/css/form-elements.css">
-      <link rel="stylesheet" href="/jewelhaat/resources/css/style.css">
 
 
 <script src="/jewelhaat/resources/js/jquery-1.11.3.js"></script>
@@ -55,13 +52,9 @@
 <script src="/jewelhaat/resources/js/jewelhaat-route.js"></script>
 <script src="/jewelhaat/resources/js/jewelhaat-product.js"></script>
 <script src="/jewelhaat/resources/js/jewelhaat-directive.js"></script>
-<script src="/jewelhaat/resources/js/jquery.backstretch.min.js"></script>
-<script src="/jewelhaat/resources/js/scripts.js"></script>
-<script src="/jewelhaat/resources/js/retina-1.1.0.min.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="masthead" />
-	<tiles:insertAttribute name="topnav" />	
 	<tiles:insertAttribute name="menu" />		
  	<tiles:insertAttribute name="main" />
  	<tiles:insertAttribute name="bottomnav" />	

@@ -11,10 +11,25 @@
 		<put-attribute name="footer" value="/WEB-INF/views/layouts/footer.jsp" />
 	</definition>
 	
+	<definition name="cartshell" template="/WEB-INF/views/layouts/cartshell.jsp" preparer="menuViewPreparer">
+		<put-attribute name="masthead" value="/WEB-INF/views/layouts/masthead.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/layouts/menu.jsp" />
+		<put-attribute name="main" value="" />
+		<put-attribute name="bottomnav" value="/WEB-INF/views/bottomnav.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layouts/footer.jsp" />
+	</definition>
+	
 	<definition name="home" extends="shell"><put-attribute name="main" value="/WEB-INF/views/home.jsp"/></definition>
 	<definition name="product" extends="shell"><put-attribute name="main" value="/WEB-INF/views/product.jsp"/></definition>
+	<definition name="design" extends="shell"><put-attribute name="main" value="/WEB-INF/views/design.jsp"/></definition>
 	<definition name="login" extends="shell"><put-attribute name="main" value="/WEB-INF/views/login.jsp"/></definition>
 	<definition name="welcome" extends="shell"><put-attribute name="main" value="/WEB-INF/views/auth/welcome.jsp"/></definition>
 	<definition name="register" extends="shell"><put-attribute name="main" value="/WEB-INF/views/auth/register.jsp"/></definition>
-
+	<definition name="search" extends="shell"><put-attribute name="main" value="/WEB-INF/views/search.jsp"/></definition>
+	<definition name="services" extends="shell"><put-attribute name="main" value="/WEB-INF/views/services.jsp"/></definition>
+	<definition name="about" extends="shell"><put-attribute name="main" value="/WEB-INF/views/about.jsp"/></definition>
+	<definition name="faq" extends="shell"><put-attribute name="main" value="/WEB-INF/views/faq.jsp"/></definition>
+	<definition name="cart" extends="cartshell"><put-attribute name="main" value="/WEB-INF/views/cart.jsp"/></definition>
+	<definition name="pricing" extends="shell"><put-attribute name="main" value="/WEB-INF/views/pricing.jsp"/></definition>
+	<definition name="seller" extends="shell"><put-attribute name="main" value="/WEB-INF/views/seller.jsp"/></definition>
 </tiles-definitions>

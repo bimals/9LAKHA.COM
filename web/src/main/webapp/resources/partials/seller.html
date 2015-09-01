@@ -1,0 +1,114 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-8">
+            <h3>Basic Information</h3>
+	    <form class="form-horizontal" ng-controller="RegistrationController" ng-submit="registerUser()">
+	        <div class="form-group">
+	            <label for="companyName" class="control-label col-xs-2">Company</label>
+	            <div class="col-xs-10">
+	                <input type="text" ng-model="companyName" class="form-control input-sm" placeholder="Your Company or Business Name"/>
+	            </div>
+	        </div>	   
+	        <div class="form-group">
+	            <label for="firstName" class="control-label col-xs-2">URL</label>
+	            <div class="col-xs-10">
+	            	<div class="row">
+	            	<div class="col-sm-4">
+	            	<label class="control-label col-xs-2">www.jewelhaat.com/</label>
+	            	</div>
+	            	<div class="col-sm-8">
+	            	<input type="text" name="companyName" ng-value="companyName | nospace | lowercase" class="form-control input-sm" placeholder="This will be link to your homepage"/>
+	            	</div>
+	            	
+	            	</div>
+	            </div>
+	        </div>	      
+	        <div class="form-group">
+	            <label for="lastName" class="control-label col-xs-2">Legal Name</label>
+	            <div class="col-xs-10">
+	                <input type="text" class="form-control" id="lastName" placeholder="Enter the business's legal name or in case of individual enter your name" ng-model="lastName">
+	            </div>
+	        </div>		        
+	        <div class="form-group">
+	            <label for="inputEmail" class="control-label col-xs-2">Email</label>
+	            <div class="col-xs-10">
+	                <input type="text" class="form-control" id="inputEmail" placeholder="Email" ng-model="inputEmail">
+	            </div>
+	        </div>	         	        
+	        <div class="form-group">
+	            <label for="inputPassword" class="control-label col-xs-2">Password</label>
+	            <div class="col-xs-10">
+	                <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="password">
+	            </div>
+	        </div>	 
+	        <div class="form-group">
+	            <label for="inputPassword" class="control-label col-xs-2">Confirm</label>
+	            <div class="col-xs-10">
+	                <input type="password" class="form-control" id="inputPassword" placeholder="Confirm Your Password" ng-model="password">
+	            </div>
+	        </div>	 	               
+	        <div class="form-group">
+	            <label for="firstName" class="control-label col-xs-2">First Name</label>
+	            <div class="col-xs-10">
+	                <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="firstName">
+	            </div>
+	        </div>	      
+	        <div class="form-group">
+	            <label for="lastName" class="control-label col-xs-2">Last Name</label>
+	            <div class="col-xs-10">
+	                <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="lastName">
+	            </div>
+	        </div>	 	          
+	        <div class="form-group">
+	            <div class="col-xs-offset-2 col-xs-10">
+	                <div class="checkbox">
+	                    <label><input type="checkbox"> Terms and Conditions</label>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <div class="col-xs-offset-2 col-xs-10">
+	                <button type="button" class="btn btn-primary" ng-click="registerCompany()">Next Step : Address & Billing</button>
+	            </div>
+	        </div>
+	    </form>
+            
+        </div>
+
+        <div class="col-sm-4">
+            <h3>BAHIKHAATA.COM</h3>
+            <h4>A Tax Consulting Company</h4>
+
+            <p>
+                400 E Remington Drive, C125<br>
+                Sunnyvale, CA 94087<br>
+            </p>
+
+            <p><i class="fa fa-phone"></i> <abbr title="Phone">P</abbr>: (415) 579-8091</p>
+
+            <p><i class="fa fa-envelope-o"></i> <abbr title="Email">E</abbr>: <a
+                    href="mailto:feedback@startbootstrap.com">feedback@bahikhaata.com</a></p>
+
+            <p><i class="fa fa-clock-o"></i> <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM</p>
+            <ul class="list-unstyled list-inline list-social-icons">
+                <li class="tooltip-social facebook-link"><a href="#facebook-page" data-toggle="tooltip"
+                                                            data-placement="top" title="Facebook"><i
+                        class="fa fa-facebook-square fa-2x"></i></a></li>
+                <li class="tooltip-social linkedin-link"><a href="#linkedin-company-page" data-toggle="tooltip"
+                                                            data-placement="top" title="LinkedIn"><i
+                        class="fa fa-linkedin-square fa-2x"></i></a></li>
+                <li class="tooltip-social twitter-link"><a href="#twitter-profile" data-toggle="tooltip"
+                                                           data-placement="top" title="Twitter"><i
+                        class="fa fa-twitter-square fa-2x"></i></a></li>
+                <li class="tooltip-social google-plus-link"><a href="#google-plus-page" data-toggle="tooltip"
+                                                               data-placement="top" title="Google+"><i
+                        class="fa fa-google-plus-square fa-2x"></i></a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div><!-- /.container -->

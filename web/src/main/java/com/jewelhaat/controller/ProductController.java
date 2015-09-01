@@ -34,13 +34,30 @@ public class ProductController {
 	@Autowired ProductService productService;
 	@Autowired UserService userService;
 	
-	@RequestMapping(value="/product", method = RequestMethod.GET)
+	@RequestMapping(value="/p", method = RequestMethod.GET)
 	public String writeProduct() {
 		
 		return "product";
 	}
 	
+	@RequestMapping(value="/services", method = RequestMethod.GET)
+	public String services() {
+		
+		return "services";
+	}
 
+	@RequestMapping(value="/faq", method = RequestMethod.GET)
+	public String faq() {
+		
+		return "faq";
+	}
+	
+	@RequestMapping(value="/checkout", method = RequestMethod.GET)
+	public String cart() {
+		
+		return "cart";
+	}
+		
 	@RequestMapping(value="/user/addproductimage", method = RequestMethod.POST)
 	@ResponseBody
 	public Product addProductImage(@RequestParam(value = "productId", required = false) String productId, @RequestParam(value = "fileToUpload", required = false) CommonsMultipartFile fileToUpload, 

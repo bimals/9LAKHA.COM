@@ -113,7 +113,7 @@ public class ProductRepository implements IProductRepository{
 			criteria = Criteria.where("_id").gt(searchCriteria.getAfter()).andOperator(criteria);
 		}
 
-		Query query = new Query(criteria).limit(20).with(new Sort(Direction.DESC, "_id"));
+		Query query = new Query(criteria).limit(20).with(new Sort(Direction.DESC, "_id")).skip(skip);
 		return mongoOps.find(query, Product.class, PRODUCT_COLLECTION);
 	}
 

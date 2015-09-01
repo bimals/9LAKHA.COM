@@ -92,7 +92,7 @@ angular.module('jewelhaat').controller('productController', ['$http', '$scope', 
 			res.success(function(data, status, headers, config) {
 				if(data != null && data.length != 0) {
 					$scope.drafts = data;
-					window.location = '#/drafts';
+					window.location = '#/add';
 				}
 				else {
 					$scope.addDraftProduct();
