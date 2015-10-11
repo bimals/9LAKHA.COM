@@ -1,4 +1,4 @@
-var app = angular.module("jewelhaat", ['angularFileUpload','ngRoute', 'infinite-scroll', 'facebook']).config(function(FacebookProvider) {
+var app = angular.module("jewelhaat", ['angularFileUpload','ngRoute', 'infinite-scroll', 'facebook', 'ngTagsInput']).config(function(FacebookProvider) {
     FacebookProvider.init('481717542008286');
 });
 
@@ -8,20 +8,221 @@ app.filter('nospace', function () {
     };
 });
 
-app.controller("RegistrationController", [ '$scope', '$http',
-		function($scope, $http) {
+app.directive('formatPhone', [
+                              function() {
+                                  return {
+                                      require: 'ngModel',
+                                      restrict: 'A',
+                                      link: function(scope, elem, attrs, ctrl, ngModel) {
+                                          elem.add(phonenumber).on('keyup', function() {
+                                             var origVal = elem.val().replace(/[^\w\s]/gi, '');
+                                             if(origVal.length === 10) {
+                                               var str = origVal.replace(/(.{3})/g,"$1-");
+                                               var phone = str.slice(0, -2) + str.slice(-1);
+                                               jQuery("#phonenumber").val(phone);
+                                             }
+
+                                          });
+                                      }
+                                  };
+                              }
+                          ]);
+
+app.directive('ensureUnique', ['$http', '$timeout', function($http, $timeout) {
+	  var checking = null;
+	  return {
+	    require: 'ngModel',
+	    link: function(scope, ele, attrs, c) {
+	      scope.$watch(attrs.ngModel, function(newVal) {
+	        if (!checking) {
+	          checking = $timeout(function() {
+	            $http({
+	              method: 'POST',
+	              url: '/jewelhaat/check/' + attrs.ensureUnique,
+	              data: {'field': attrs.ensureUnique}
+	            }).success(function(data, status, headers, cfg) {
+	              c.$setValidity('unique', data.isUnique);
+	              checking = null;
+	            }).error(function(data, status, headers, cfg) {
+	              checking = null;
+	            });
+	          }, 500);
+	        }
+	      });
+	    }
+	  }
+	}]);
+
+
+app.service('sellerService', ['$http', function($http){
+	this.createSeller = function() {
+		var res = $http.post('/jewelhaat/blog');
+		res.success(function(data, status, headers, config) {
+				
+		});
+		res.error(function(data, status, headers, config) {
+			console.log("blog service 1");
+			window.location = '/jewelhaat/login/#/login';
+		});
+		
+		return res;
+	};
 	
-			$scope.registerCompany = function() {
+}]);
+
+app.service('companyService', function() {
+	  var company = null;
+
+	  var setCompany = function(newObj) {
+	      company = newObj;
+	  };
+
+	  var getCompany = function(){
+	      return company;
+	  };
+
+	  return {
+		  setCompany: setCompany,
+		  getCompany: getCompany
+	  };
+
+	});
+
+
+app.service('companyServiceImpl', ['$http', 'companyService', function($http, companyService) {
+	  
+    this.registerCompany = function(companyObj) {
+				var res = $http.post(
+						'/jewelhaat/seller/create',
+						companyObj);
+				res.success(function(data, status,
+						headers, config) {
+					companyService.setCompany(data);
+				});
+				res.error(function(data, status,
+						headers, config) {
+					alert("failure message: "
+							+ JSON.stringify({
+								data : data
+							}));
+				});
+
 				window.location = "#/address";
-			};
-			
-			$scope.captureCreditCard = function() {
-				window.location = "#/cc";
-			};
-			
-			$scope.review = function() {
-				window.location = "#/review";
+				return res;
+    };	  
+    
+    
+
+	}]);
+
+
+app.controller("RegistrationController", [ '$scope', '$http', '$routeParams','companyService', 'companyServiceImpl', function($scope, $http, $routeParams,companyService, companyServiceImpl) {
+	
+	  $scope.tags = [
+	                 { id: 1, name: 'Tag1' },
+	                 { id: 2, name: 'Tag2' },
+	                 { id: 3, name: 'Tag3' }
+	               ];
+	
+      $scope.loadTags = function(query) {
+          return $http.get('tags.json');
+        };
+        
+       
+	$scope.plan = $routeParams.plan;
+	$scope.submitted = false;
+
+	$scope.registerCompany = function() {
+		if ($scope.sellerSignUp.$valid) {
+			if ($scope.terms) {
+				var companyObj = {
+						companyName : $scope.company.companyName,
+						companyURL : $scope.company.url,
+						businessLegalName : $scope.company.businessLegalName,
+						phoneNumber : $scope.company.phoneNumber,
+						companyEmail : $scope.company.companyEmail,
+						contactPerson : $scope.company.contactPerson,
+						planType : $scope.plan
+					};
+
+				companyServiceImpl.registerCompany(companyObj).then(function(response) {
+					$scope.company = response.data;
+					companyService.setCompany(response.data);
+				});
+
+			} else {
+				$scope.sellerSignUp.submitted = true;
 			}
+		}
+
+	};
+	
+	$scope.getCompany = function() {
+		$scope.company = companyService.getCompany();
+	}
+
+	$scope.backToStart = function() {
+		$scope.company = companyService.getCompany();
+		window.location = '#/setup/' + $scope.company.planType;
+	}
+			
+	$scope.captureCreditCard = function() {
+		
+		var company = companyService.getCompany();
+		
+		var companyObj = {
+				id : company.id,
+				companyName : company.companyName,
+				companyURL : company.url,
+				businessLegalName : company.legalName,
+				phoneNumber : company.phoneNumber,
+				companyEmail : company.companyEmail,
+				addressFullName : $scope.company.addressFullName,
+				addressLine1 : $scope.company.addressLine1,
+				city : $scope.company.city,
+				state : $scope.company.state,
+				zipCode : $scope.company.zipCode,
+				country : $scope.company.country
+				
+			};
+		companyServiceImpl.registerCompany(companyObj).then(function(response) {
+			$scope.company = response.data;
+			companyService.setCompany(response.data);
+		});
+		
+		window.location = "#/cc";
+	};
+			
+	$scope.review = function() {
+		
+		var company = companyService.getCompany();
+		
+		var companyObj = {
+				id : company.id,
+				companyName : company.companyName,
+				companyURL : company.url,
+				businessLegalName : company.legalName,
+				phoneNumber : company.phoneNumber,
+				companyEmail : company.companyEmail,
+				addressFullName : company.addressFullName,
+				addressLine1 : company.addressLine1,
+				city : company.city,
+				state : company.state,
+				zipCode : company.zipCode,
+				country : company.country,
+				cardHolderName : $scope.company.cardHolderName,
+				cardNumber : $scope.company.cardNumber,
+				expireMonth : $scope.company.expireMonth,
+				expireYear : $scope.company.expireYear,
+				cvv : $scope.company.cvv
+			};
+		companyServiceImpl.registerCompany(companyObj).then(function(response) {
+			$scope.company = response.data;
+			companyService.setCompany(response.data);
+		});
+										
+		window.location = "#/review";
+	};
 			
 			$scope.invoice = function() {
 				window.location = "#/invoice";
@@ -87,6 +288,11 @@ app.controller("loginController", [ '$scope', '$http', '$rootScope', function($s
 } ]);
 
 app.controller("HomeController", [ '$scope', '$http', '$rootScope', 'Facebook', function($scope, $http, $rootScope, Facebook) {
+	
+	$scope.hasDraftCompany = function() {
+		
+	};
+	
 	
 	$scope.fbLogout = function() {
 		Facebook.logout(function(response) {
@@ -525,4 +731,3 @@ app.controller('userController', ['$scope', 'userService', function($scope, user
 		});
 	}
 }]);
-

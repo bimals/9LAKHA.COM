@@ -1,7 +1,14 @@
     <div class="container">
-	<div class="card card-container">
-		<fb:login-button autologoutlink="true" scope="public_profile,email" ng-controller="HomeController" onlogin="checkLoginState();">
-		</fb:login-button>
+	
+		<div class = "row">
+			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+			<div>
+				<fb:login-button autologoutlink="true" scope="public_profile,email"
+					ng-controller="HomeController" onlogin="checkLoginState();">
+				</fb:login-button>
+			</div>
+		</div>
+		<div class="card card-container">
 		<!-- <script type="in/Login"></script> -->
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin" action="/bimalsahay/j_spring_security_check" method='POST'>				

@@ -1,0 +1,181 @@
+<div class="container" ng-controller="productController" ng-init="checkForDraftProducts();">
+
+	<div class="row">
+
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				You have Saved Draft <small>You can use one</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#/">Home</a></li>
+				<li class="active">New Product</li>
+			</ol>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="container usercard">
+				<div class="row">
+					<div class="span1">
+						<img class="thumbnail" src="https://lh5.googleusercontent.com/-00d7QT6jugU/AAAAAAAAAAI/AAAAAAAAJhY/lVMZKufA9tg/s96-c/photo.jpg">
+					</div>
+					<div class="span3">
+						<h5>Username</h5>
+						Thsi is a prifle lisk fo usfd asd. http://www.googel.com
+					</div>
+				</div>
+				<div class="row">
+					<div class="span3 offset1">
+						Links <span class="badge badge-success">2</span> Posts <span
+							class="badge badge-success">2</span> Likes <span
+							class="badge badge-success">2</span>
+					</div>
+				</div>
+			</div>
+			<h3>BIMALSAHAY.COM</h3>
+			<h4>Software Engineer</h4>
+
+			<p>
+				400 E Remington Drive, C125<br> Sunnyvale, CA 94087<br>
+			</p>
+
+			<p>
+				<i class="fa fa-phone"></i> <abbr title="Phone">P</abbr>: (415)
+				579-8091
+			</p>
+
+			<p>
+				<i class="fa fa-envelope-o"></i> <abbr title="Email">E</abbr>: <a
+					href="mailto:feedback@startbootstrap.com">feedback@bimalsahay.com</a>
+			</p>
+
+			<p>
+				<i class="fa fa-clock-o"></i> <abbr title="Hours">H</abbr>: Monday -
+				Friday: 9:00 AM to 5:00 PM
+			</p>
+			<ul class="list-unstyled list-inline list-social-icons">
+				<li class="tooltip-social facebook-link"><a
+					href="#facebook-page" data-toggle="tooltip" data-placement="top"
+					title="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+				<li class="tooltip-social linkedin-link"><a
+					href="#linkedin-company-page" data-toggle="tooltip"
+					data-placement="top" title="LinkedIn"><i
+						class="fa fa-linkedin-square fa-2x"></i></a></li>
+				<li class="tooltip-social twitter-link"><a
+					href="#twitter-profile" data-toggle="tooltip" data-placement="top"
+					title="Twitter"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+				<li class="tooltip-social google-plus-link"><a
+					href="#google-plus-page" data-toggle="tooltip" data-placement="top"
+					title="Google+"><i class="fa fa-google-plus-square fa-2x"></i></a></li>
+			</ul>
+			<div>
+
+				<h3>Select files</h3>
+
+				<div ng-show="uploader.isHTML5">
+					<!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+					<div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+						<div nv-file-over="" uploader="uploader"
+							over-class="another-file-over-class" class="well my-drop-zone">
+							Drop Files to be Uploaded Here</div>
+					</div>
+				</div>
+
+				<!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+				<input type="file" nv-file-select="" uploader="uploader" multiple /><br />
+
+			</div>
+		</div>
+		<div class="col-sm-8">
+				<!-- <button class="btn btn-default btn-primary" ng-click="uploadFile()">Publish</button> -->
+				<div class="form-group">
+					<!--     	<label class="control-label">Image That Defines Your Product</label>
+		<span class="btn btn-default btn-file"><input type="file" file-model="myFile"/>
+		</span> -->
+					<div class="panel panel-default">
+							<div>
+								<p>Queue length: {{ uploader.queue.length }}</p>
+
+								<table class="table">
+									<thead>
+										<tr>
+											<th width="50%">Name</th>
+											<th ng-show="uploader.isHTML5">Size</th>
+											<th ng-show="uploader.isHTML5">Progress</th>
+											<th>Status</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="draft in drafts">
+											<td><strong>{{ draft.productTitle}}</strong>
+											</td>
+											<td ng-show="uploader.isHTML5" nowrap>{{draft.productWebsite}}</td>
+											<td ng-show="uploader.isHTML5">
+												<div class="progress" style="margin-bottom: 0;">
+													<div class="progress-bar" role="progressbar"
+														ng-style="{ 'width': item.progress + '%' }"></div>
+												</div>
+											</td>
+											<td class="text-center"><span ng-show="item.isSuccess"><i
+													class="glyphicon glyphicon-ok"></i></span> <span
+												ng-show="item.isCancel"><i
+													class="glyphicon glyphicon-ban-circle"></i></span> <span
+												ng-show="item.isError"><i
+													class="glyphicon glyphicon-remove"></i></span></td>
+											<td nowrap>
+												<button type="button" class="btn btn-success btn-xs"
+													ng-click="useThisTemplate(draft)">
+													<span class="glyphicon glyphicon-upload"></span> Use
+												</button>
+												<button type="button" class="btn btn-warning btn-xs"
+													ng-click="deleteThisTemplate(draft)">
+													<span class="glyphicon glyphicon-ban-circle"></span> Trash
+												</button>
+												<button type="button" class="btn btn-danger btn-xs"
+													ng-click="copyThisTemplate(draft)">
+													<span class="glyphicon glyphicon-trash"></span> Copy
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<div>
+									<button type="button" class="btn btn-success btn-s"
+										ng-click="addNew()">
+										<span class="glyphicon glyphicon-upload"></span> Add New
+									</button>
+									<button type="button" class="btn btn-warning btn-s"
+										ng-click="uploader.cancelAll()">
+										<span class="glyphicon glyphicon-ban-circle"></span> Cancel
+										all
+									</button>
+									<button type="button" class="btn btn-danger btn-s"
+										ng-click="uploader.clearQueue()"
+										ng-disabled="!uploader.queue.length">
+										<span class="glyphicon glyphicon-trash"></span> Remove all
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Write More</label>
+					<textarea class="form-control" name="review" rows="8"
+						ng-model="productMoreText"></textarea>
+				</div>
+				<div id="mode-group" class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default"> <input type="radio"
+						name="mode" id="option1"> Preview
+					</label> <label class="btn btn-default"> <input type="radio"
+						name="mode" id="option2"> Save Draft
+					</label>
+				</div>
+				<button class="btn btn-default btn-primary" ng-click="publishProduct()">Publish</button>
+			</form>
+		</div>
+	</div>
+</div>

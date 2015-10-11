@@ -103,9 +103,9 @@ angular.module('jewelhaat').config([ '$routeProvider', function($routeProvider) 
 		controller : "BlogCtrl"
 	})
 	
-	.when("/setup", {
+	.when("/setup/:plan", {
 		templateUrl : "/jewelhaat/resources/partials/seller.html",
-		controller : "BlogCtrl"
+		controller : "RegistrationController"
 	})
 	
 	.when("/cc", {

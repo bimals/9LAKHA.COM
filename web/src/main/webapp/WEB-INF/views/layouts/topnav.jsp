@@ -13,7 +13,8 @@
 				</form>
 			</div>
 			<div class="col-lg-4 col-md-4">
-					<button class="btn btn-default" ng-click="startSelling()">Start Selling Now!</button>
+					<button class="btn btn-default" ng-click="startSelling()" ng-show="loggedIn">Start Selling Now!</button>
+					<button class="btn btn-default" ng-click="startSelling()" ng-show="hasUnprocessedCompanies">Finish Company SetUp</button>
 			</div>
 		</div>
 	</div>

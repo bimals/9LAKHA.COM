@@ -276,7 +276,7 @@ footer {
 
 .strike {
     display: block;
-    text-align: center;
+/*     text-align: center; */
     overflow: hidden;
     white-space: nowrap; 
 }
@@ -384,3 +384,41 @@ footer {
     border-top: 3px solid;
 }	
 	
+/* ********************************************************************
+      
+      VALIDATION ERRORS 
+      
+ ******************************************************************** */ 
+.validation-error-text-container {
+    background: none repeat scroll 0 0 #FFF8AF;
+    border: 1px solid #BFBA91;
+    border-radius: 0.32em;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    color: #990000;
+    display: inline-block;
+    /*float: left;*/
+    font: 12px 'Droid Sans',Tahoma,arial,sans-serif;
+    margin: 5px 0 5px;
+    padding: 3px 4px 3px 3px;
+    text-align: left;
+    width: auto;
+}
+
+.validation-error-icon {
+    background: none repeat scroll 0 0 #EA5200;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin: 0 5px;
+    padding: 0 4px 0 5px;
+    width: auto;
+}
+
+input.ng-invalid {
+  border: 1px solid red;
+}
+input.ng-valid {
+  border: 1px solid green;
+}
+
+form .inputs label.error { font-size: 0.9em; margin: 0; }
+form .error-container { color: #bb1f34; font-size: 1.2em; margin: 0.9em 0; }

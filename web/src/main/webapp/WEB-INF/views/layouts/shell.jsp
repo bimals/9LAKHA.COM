@@ -8,6 +8,10 @@
     <meta name="description" content="JEWELHAAT.COM">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+	
+	<meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="941743424975-q33rhmhj20920ojj1pt48ocqpkep02lb.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 		
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -19,9 +23,9 @@
       <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 	  <link rel="stylesheet" href="/jewelhaat/resources/css/form-elements.css">
       <link rel="stylesheet" href="/jewelhaat/resources/css/style.css">
+      <link rel="stylesheet" href="/jewelhaat/resources/css/ng-tags-input.css">
 
-
-<script src="/jewelhaat/resources/js/jquery-1.11.3.js"></script>
+<script src="/jewelhaat/resources/js/jquery-2.1.4.js"></script>
 <!-- 
 <script src="/jewelhaat/resources/js/cors/jquery.postmessage-transport.js"></script>
 <script src="/jewelhaat/resources/js/cors/jquery.xdr-transport.js"></script>
@@ -34,7 +38,7 @@
 <script src="/jewelhaat/resources/js/angular-route.js"></script>
 <script src="/jewelhaat/resources/js/angular-facebook.js"></script>
 <script src="/jewelhaat/resources/js/ng-infinite-scroll.js"></script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="/jewelhaat/resources/js/ng-tags-input.js"></script>
 <!-- <script type="text/javascript" src="//platform.linkedin.com/in.js">
     api_key:75tvyddibk47hf
     onLoad:checkLoginState
@@ -58,6 +62,7 @@
 <script src="/jewelhaat/resources/js/jquery.backstretch.min.js"></script>
 <script src="/jewelhaat/resources/js/scripts.js"></script>
 <script src="/jewelhaat/resources/js/retina-1.1.0.min.js"></script>
+
 </head>
 <body>
 	<tiles:insertAttribute name="masthead" />
